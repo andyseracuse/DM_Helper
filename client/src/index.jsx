@@ -4,7 +4,8 @@ import './main.css';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import axios from 'axios';
 
-import Dashboard from './modules/Dashboard.jsx'
+import Dashboard from './modules/Dashboard.jsx';
+import GroupsView from './modules/GroupsView.jsx'
 
 const baseURL = 'http://localhost:3000'
 
@@ -14,7 +15,7 @@ const App = () => {
   const [campaignTitles, setcampaignTitles] = useState([])
   const [campaign, setCampaign] = useState({})
 
-  const getcampaignTitles = () => {
+  const getCampaignTitles = () => {
     axios.get(baseURL + '/campaigns')
       .then((response) => {
         setcampaignTitles(response.data)
@@ -23,7 +24,7 @@ const App = () => {
   }
 
   React.useEffect(() => {
-    getcampaignTitles()
+    getCampaignTitles()
   }, [])
 
   const toggle = () => setModal(!modal);
@@ -33,7 +34,6 @@ const App = () => {
     axios.get(baseURL + '/campaigns/' + campaign._id)
       .then((response) => {
         setCampaign(response.data)
-        toggle()
       })
       .catch((err) => {
         console.log(err)
@@ -48,13 +48,27 @@ const App = () => {
           {campaignTitles.map((titleObject, index) => {
             return (
               <div className="ajs-flexbox-center row">
-                <Button onClick={() => {chooseCampaign(titleObject)}} className="col-8" color="primary">{titleObject.title} </Button>
+                <Button onClick={() => { 
+                    chooseCampaign(titleObject);
+                    toggle();
+                  }} 
+                  className="col-8" 
+                  color="primary">{titleObject.title}
+                </Button>
               </div>
             )
           })}
         </ModalBody>
       </Modal>
-      <Dashboard campaign={campaign} campaignTitles={campaignTitles}/>
+      <Dashboard 
+        getCampaignTitles={getCampaignTitles}
+        campaign={campaign}
+        chooseCampaign={chooseCampaign}
+        campaignTitles={campaignTitles}
+        baseURL={baseURL}
+        setCampaign={setCampaign}
+      />
+      <GroupsView/>
     </div>
   )
 }
