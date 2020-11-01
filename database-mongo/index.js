@@ -24,7 +24,7 @@ db.once('open', function() {
 /////////////////////////////////////////////////////////////////
 
 const findAllCampaigns = function() {
-  return Campaign.find({})
+  return Campaign.find({}, {title: 1})
 };
 
 const findOneCampaign = function(id) {
