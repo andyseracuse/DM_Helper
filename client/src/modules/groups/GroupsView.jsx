@@ -1,10 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import { Button } from 'reactstrap'
 import PropTypes from 'prop-types';
 import { makeStyles } from '@material-ui/core/styles';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
 import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
+import DefualtGroupsPane from './DefualtGroupsPane';
+import axios from 'axios';
+import CreateGroupFormModal from './CreateGroupFormModal';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -44,16 +48,30 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     backgroundColor: theme.palette.background.paper,
     display: 'flex',
-    height: 224,
+    height: '100%'
   },
   tabs: {
     borderRight: `1px solid ${theme.palette.divider}`,
   },
 }));
 
-export default function GroupsView() {
+export default function GroupsView({ campaign, chooseCampaign, baseURL}) {
   const classes = useStyles();
   const [value, setValue] = useState(0);
+  const [groupModalActivated, setGroupModalActivated] = useState(false)
+  const groupModalToggle = () => setGroupModalActivated(!groupModalActivated);
+
+  const submitNewGroup = (body) => {
+    axios({
+      method:"post",
+      url: baseURL + "/campaign/" + campaign.id +"/NPCs/groups",
+      data: body
+    })
+      .then(() => {
+        chooseCampaign(campaign)
+      })
+  }
+  
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -61,6 +79,14 @@ export default function GroupsView() {
 
   return (
     <div className={classes.root}>
+      <CreateGroupFormModal
+        groupModalActivated={groupModalActivated} 
+        groupModalToggle={groupModalToggle} 
+        baseURL={baseURL}
+        chooseCampaign={chooseCampaign}
+        setGroupModalActivated={setGroupModalActivated}
+        campaign={campaign}
+      />
       <Tabs
         orientation="vertical"
         variant="scrollable"
@@ -69,35 +95,25 @@ export default function GroupsView() {
         aria-label="Vertical tabs example"
         className={classes.tabs}
       >
-        <Tab label="Item One" {...a11yProps(0)} />
-        <Tab label="Item Two" {...a11yProps(1)} />
-        <Tab label="Item Three" {...a11yProps(2)} />
-        <Tab label="Item Four" {...a11yProps(3)} />
-        <Tab label="Item Five" {...a11yProps(4)} />
-        <Tab label="Item Six" {...a11yProps(5)} />
-        <Tab label="Item Seven" {...a11yProps(6)} />
+        <Tab id="ajs-title-tab" label='GROUPS' {...a11yProps(0)} />
+        {
+          campaign.NPCs.groups.map((group, index) => {
+            return <Tab label={group.name} {...a11yProps(index + 1)} />
+          })
+        }
       </Tabs>
       <TabPanel value={value} index={0}>
-        Item One
+        <DefualtGroupsPane groupModalToggle={groupModalToggle} submitNewGroup={submitNewGroup}/>
       </TabPanel>
-      <TabPanel value={value} index={1}>
-        Item Two
-      </TabPanel>
-      <TabPanel value={value} index={2}>
-        Item Three
-      </TabPanel>
-      <TabPanel value={value} index={3}>
-        Item Four
-      </TabPanel>
-      <TabPanel value={value} index={4}>
-        Item Five
-      </TabPanel>
-      <TabPanel value={value} index={5}>
-        Item Six
-      </TabPanel>
-      <TabPanel value={value} index={6}>
-        Item Seven
-      </TabPanel>
+      {
+        campaign.NPCs.groups.map((group, index) => {
+          return (
+            <TabPanel value={value} index={index + 1}>
+              {group.name}
+            </TabPanel>
+          )
+        })
+      }
     </div>
   );
 }

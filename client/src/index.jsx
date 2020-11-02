@@ -5,7 +5,7 @@ import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 import axios from 'axios';
 
 import Dashboard from './modules/Dashboard.jsx';
-import GroupsView from './modules/GroupsView.jsx'
+import GroupsView from './modules/groups/GroupsView.jsx'
 
 const baseURL = 'http://localhost:3000'
 
@@ -13,7 +13,7 @@ const baseURL = 'http://localhost:3000'
 const App = () => {
   const [modal, setModal] = useState(true)
   const [campaignTitles, setcampaignTitles] = useState([])
-  const [campaign, setCampaign] = useState({})
+  const [campaign, setCampaign] = useState({title:'', NPCs:{groups:[]}})
 
   const getCampaignTitles = () => {
     axios.get(baseURL + '/campaigns')
@@ -29,9 +29,8 @@ const App = () => {
 
   const toggle = () => setModal(!modal);
 
-  const chooseCampaign = (campaign) => {
-    console.log(campaign)
-    axios.get(baseURL + '/campaigns/' + campaign._id)
+  const chooseCampaign = (titleObject) => {
+    axios.get(baseURL + '/campaigns/' + titleObject._id)
       .then((response) => {
         setCampaign(response.data)
       })
@@ -42,13 +41,14 @@ const App = () => {
 
   return(
     <div>
-      <Modal isOpen={modal} toggle={toggle}>
+      <Modal isOpen={modal}>
         <ModalHeader className="ajs-flexbox-center">Choose A Campaign!</ModalHeader>
         <ModalBody>
           {campaignTitles.map((titleObject, index) => {
             return (
               <div className="ajs-flexbox-center row">
-                <Button onClick={() => { 
+                <Button 
+                  onClick={() => { 
                     chooseCampaign(titleObject);
                     toggle();
                   }} 
@@ -68,7 +68,11 @@ const App = () => {
         baseURL={baseURL}
         setCampaign={setCampaign}
       />
-      <GroupsView/>
+      <GroupsView 
+        campaign={campaign}
+        chooseCampaign={chooseCampaign}
+        baseURL={baseURL}
+      />
     </div>
   )
 }

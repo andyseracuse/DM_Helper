@@ -1,4 +1,18 @@
 .ajs-flexbox-center{
   display: flex;
   justify-content: center;
+  width: 100%;
+}
+.ajs-column-flex{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+#vertical-tab-0 {
+  background-color: #6c757d;
+  border-radius: 5px 0 0 5px;
+  color: white;
+}
+.ajs-low-bottom-jumbotron {
+  padding: 5%;
 }
