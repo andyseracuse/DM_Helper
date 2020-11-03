@@ -97,6 +97,7 @@ const createMember = function(campaignId, groupId, body) {
       campaign.markModified('NPCs')
       campaign.save()
     })
+    .then((response) => {console.log(response)})
 }
 
 const deleteMember = function(campaignId, groupId, memberId) {

@@ -8,11 +8,34 @@
   flex-direction: column;
   align-items: center;
 }
+.ajs-row-flex{
+  display: flex;
+}
 #vertical-tab-0 {
   background-color: #6c757d;
+  border-radius: 5px 0 0 5px;
+  color: white;
+}
+#vertical-tab-1 {
+  background-color: #007bff;
   border-radius: 5px 0 0 5px;
   color: white;
 }
 .ajs-low-bottom-jumbotron {
   padding: 5%;
 }
+.ajs-group-pane {
+  max-width: 793px;
+}
+.ajs-group-selector .btn-outline-primary{
+  border: 2px solid gainsboro;
+  border-top-color: none;
+}
+.ajs-group-buttons{
+  max-height: 300px;
+  overflow: auto;
+}
+.ajs-group-pane{
+  width: 100%;
+}
+
