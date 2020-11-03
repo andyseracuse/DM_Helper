@@ -24,7 +24,7 @@ db.once('open', function() {
 /////////////////////////////////////////////////////////////////
 
 const findAllCampaigns = function() {
-  return Campaign.find({})
+  return Campaign.find({}, {title: 1})
 };
 
 const findOneCampaign = function(id) {
@@ -97,6 +97,7 @@ const createMember = function(campaignId, groupId, body) {
       campaign.markModified('NPCs')
       campaign.save()
     })
+    .then((response) => {console.log(response)})
 }
 
 const deleteMember = function(campaignId, groupId, memberId) {

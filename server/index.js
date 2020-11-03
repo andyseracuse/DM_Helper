@@ -49,7 +49,8 @@ app.delete('/campaigns/:id', function(req, res) {
 app.post('/campaigns/', function(req, res) {
   db.createCampaign(req.body.title)
     .then((dbResponse) => {
-      res.sendStatus(201)
+      res.status(201)
+      res.send(dbResponse)
     })
     .catch((err) => {
       console.log(err);
