@@ -4,13 +4,12 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
-const db = require('../database-mongo/index.js');
+const db = require('../db/index.js');
 
 app.use(express.static(path.join(__dirname, '../client/dist')))
 app.use(cors());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
-
 
 ////////////////////////////////////////////////////////////////
 //Campaign routes
@@ -47,9 +46,10 @@ app.delete('/campaigns/:id', function(req, res) {
 })
 
 app.post('/campaigns/', function(req, res) {
-  db.createCampaign(req.body.title)
-    .then((dbResponse) => {
-      res.sendStatus(201)
+  db.createCampaign(req.body)
+    .then((dbResponse) =>  {
+      res.status(200);
+      res.send(dbResponse)
     })
     .catch((err) => {
       console.log(err);
@@ -61,7 +61,6 @@ app.post('/campaigns/', function(req, res) {
 //NPC GROUP ROUTES
 ///////////////////////////////////////////////////////////////
 app.post('/campaigns/:id/NPCs/groups', function(req, res) {
-  console.log('in post group')
   db.createGroup(req.params.id, req.body)
     .then((dbResponse) => {
       res.sendStatus(201);
@@ -71,8 +70,28 @@ app.post('/campaigns/:id/NPCs/groups', function(req, res) {
       res.sendStatus(500);
     })
 })
-app.delete('/campaigns/:campaignId/NPCs/groups/:groupId', function(req, res) {
-  db.deleteGroup(req.params.campaignId, req.params.groupId)
+app.get('/groups/:groupId', function(req, res) {
+  db.getGroup(req.params.groupId)
+    .then((dbResponse) => {
+      res.status(204);
+      res.send(dbResponse)
+    })
+    .catch((err) => {
+      console.log(err);
+      res.sendStatus(500)
+    })
+})
+app.put('/groups/:groupId', function(req, res) {
+  db.updateGroup(req.params.groupId, req.body)
+    .then(() => {
+      res.send(201)
+    })
+    .catch((err) => {
+      res.send(500)
+    })
+})
+app.delete('/groups/:groupId', function(req, res) {
+  db.deleteGroup(req.params.groupId)
     .then(() => res.sendStatus(201))
     .catch((err) => {
       console.log(err);
@@ -90,9 +109,29 @@ app.post('/campaigns/:campaignId/NPCs/groups/:groupId/members', function(req, re
       res.sendStatus(500)
     })
 })
-
-app.delete('/campaigns/:campaignId/NPCs/groups/:groupId/members/:memberId', function(req, res) {
-  db.deleteMember(req.params.campaignId, req.params.groupId, req.params.memberId)
+app.get('/members/:memberId', function(req, res){
+  db.getGroup(req.params.memberId)
+    .then((response) => {
+      res.status(200)
+      res.send(response)
+    })
+    .catch((err) => {
+      console.log(err);
+      res.sendStatus(500)
+    })
+})
+app.put('/members/:memberId', function(req, res){
+  db.updateMember(req.params.memberId, body)
+    .then(() => {
+      res.sendStatus(204);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.sendStatus(500)
+    })
+})
+app.delete('/members/:memberId', function(req, res) {
+  db.deleteMember(req.params.memberId)
     .then(() => res.sendStatus(204))
     .catch((err) => {
       console.log(err)
@@ -103,4 +142,3 @@ app.delete('/campaigns/:campaignId/NPCs/groups/:groupId/members/:memberId', func
 app.listen(3000, function() {
   console.log('listening on port 3000!');
 });
-

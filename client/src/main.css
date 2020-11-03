@@ -1,0 +1,14 @@
+.ajs-flex-column{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.ajs-form-error {
+  color: #bf1650;
+}
+
+.ajs-form-error::before {
+  display: inline;
+  content: "⚠ ";
+}

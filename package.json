@@ -26,6 +26,7 @@
   "homepage": "https://github.com/RAJE-tech/related-items#readme",
   "dependencies": {
     "@material-ui/core": "^4.11.0",
+    "@material-ui/icons": "^4.9.1",
     "@material-ui/lab": "^4.0.0-alpha.56",
     "autoprefixer": "^10.0.1",
     "axios": "^0.20.0",
@@ -39,6 +40,7 @@
     "nodemon": "^2.0.4",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-hook-form": "^6.10.1",
     "react-inner-image-zoom": "^1.1.1",
     "react-magnifier": "^3.0.4",
     "react-media": "^1.10.0",
