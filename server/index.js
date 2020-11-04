@@ -102,7 +102,7 @@ app.delete('/groups/:groupId', function(req, res) {
 //MEMBER ROUTES
 /////////////////////////////////////////////////////////////
 app.post('/campaigns/:campaignId/NPCs/groups/:groupId/members', function(req, res) {
-  db.createMember(req.params.campaignId, req.params.groupId, req.body)
+  db.createMember(req.body, req.params.groupId)
     .then(() => res.sendStatus(204))
     .catch((err) => {
       console.log(err)

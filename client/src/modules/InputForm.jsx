@@ -13,8 +13,13 @@ import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
 import { useForm } from 'react-hook-form';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select'
 
-export default function InputForm({ inputs, submitFxn }) {
+export default function InputForm({ inputs, submitFxn, modalToggle }) {
   const useStyles = makeStyles((theme) => ({
     paper: {
       display: 'flex',
@@ -48,7 +53,7 @@ export default function InputForm({ inputs, submitFxn }) {
             (e) => {
               e.preventDefault()
               handleSubmit((data)=> submitFxn(data))();
-              modalToggle();
+              // modalToggle();
             }
           }
         >
@@ -71,9 +76,46 @@ export default function InputForm({ inputs, submitFxn }) {
                         autoFocus
                         className={classes.input}
                       />
-                      {errors[input.name] && (
+                      {errors[input.key] && <p className='ajs-form-error'>{input.errorMessage}</p>}
+                    </Grid>
+                  )
+                }
+                if(input.type === 'dropdown') {
+                  input.validations === undefined ? input.validations = {} : null
+                  const [selectInput, setSelectInput] = React.useState('')
+                  const handleChange = (event) => {
+                    setSelectInput(event.target.value);
+                  };
+                  return(
+                    <Grid item sm={input.sm}>
+                      <div classname="ajs-select-wont-100">
+                      <FormControl classname={classes.fullwidth} variant="outlined" className={classes.input}>
+                        <InputLabel className={classes.fullWidth} id="demo-simple-select-outlined-label">{input.name}</InputLabel>
+                        <Select
+                          inputRef={register(input.validations)}
+                          labelId="demo-simple-select-outlined-label"
+                          id={input.name}
+                          value={selectInput}
+                          name={input.key}
+                          onChange={handleChange}
+                          label={input.name}
+                          required={input.validations.required === true ? true : false}
+                          fullWidth
+                          margin="normal"
+                          className={classes.fullWidth}
+                        >
+                          <MenuItem className={classes.fullWidth} value="">
+                            <em>persuasion</em>
+                          </MenuItem>
+                          {input.selectValues.map((value) => {
+                            return <MenuItem name={input.key} value={value}>{value}</MenuItem>
+                          })}
+                        </Select>
+                      </FormControl>
+                      {errors[input.key] && (
                         <p className='ajs-form-error'>{input.errorMessage}</p>
                       )}
+                    </div>
                     </Grid>
                   )
                 }
@@ -94,4 +136,3 @@ export default function InputForm({ inputs, submitFxn }) {
     </Container>
   );
 }
-

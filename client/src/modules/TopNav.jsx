@@ -31,6 +31,9 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: 'center',
     display: 'flex',
     flexDirection: 'column'
+  },
+  entireNav: {
+    marginBottom: 20
   }
 }));
 
@@ -42,7 +45,7 @@ export default function TopNav({ campaignButtonModalToggle }) {
   const toggle = () => setIsOpen(!isOpen);
 
   return (
-    <div>
+    <div className={classes.entireNav}>
       <Navbar color="dark" dark expand="md">
         <NavbarBrand href="/">DM Helper</NavbarBrand>
         <NavbarToggler onClick={toggle} />

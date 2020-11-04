@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
+const Member = require('./member.js')
 
 const groupSchema = new Schema({
   name: String,
@@ -7,7 +8,7 @@ const groupSchema = new Schema({
     type: String,
     enum: ['with', 'against', 'nuetral']
   },
-  members: [{ type: Schema.Types.ObjectId, ref: 'Members' }]
+  members: [{ type: Schema.Types.ObjectId, ref: 'Member' }]
 })
 
 module.exports = mongoose.model('Group', groupSchema)

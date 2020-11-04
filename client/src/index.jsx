@@ -6,6 +6,7 @@ import FormModal from './modules/FormModal'
 import InputForm from './modules/InputForm'
 import CampaignButtons from './modules/CampaignButtons'
 import TopNav from './modules/TopNav'
+import GroupsView from './modules/GroupsView'
 import axios from 'axios';
 
 const baseURL = 'http://localhost:3000'
@@ -107,6 +108,11 @@ const App = () => {
         />
       </FormModal>
       <TopNav campaignButtonModalToggle={campaignButtonModalToggle} />
+      <GroupsView 
+        campaign={campaign} 
+        baseURL={baseURL} 
+        chooseCampaign={chooseCampaign}
+      />
     </div>
   )
 }

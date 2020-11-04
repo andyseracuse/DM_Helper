@@ -18,8 +18,10 @@ const findAllCampaigns = function() {
   return Campaign.find({}, { title: 1, image: 1 })
 }
 
-const findOneCampaign = function(id) {
+const findOneCampaign = async function(id) {
   return Campaign.findById(id)
+    .populate({path: 'NPCs.groups', populate:{ path: 'members'}})
+    .then((campaign) => {return campaign})
 }
 
 const createCampaign = function(body) {
