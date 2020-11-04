@@ -18,6 +18,9 @@ const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
   },
+  center: {
+    justifyContent: 'center'
+  },
   heading: {
     fontSize: theme.typography.pxToRem(15),
     flexBasis: '25%',
@@ -35,7 +38,8 @@ const useStyles = makeStyles((theme) => ({
 export default function GroupsView({ campaign, baseURL, chooseCampaign }) {
   const classes = useStyles();
 
-  const [selectedGroup, setSelectedGroup] = useState({});
+  const [selectedGroup, setSelectedGroup] = useState({members:[], default:true});
+  const [selectedMember, setSelectedMember] = useState({default: true})
 
   return (
     <Container component="main" maxWidth="md">
@@ -66,13 +70,23 @@ export default function GroupsView({ campaign, baseURL, chooseCampaign }) {
             setSelectedGroup={setSelectedGroup}
             chooseCampaign={chooseCampaign}
             baseURL={baseURL}
+            selectedMember={selectedMember}
+            setSelectedMember={setSelectedMember}
           />
         </Grid>
         <Grid item xs={1}>
-          <Divider orientation="vertical"/>
+          <Divider className={classes.center} orientation="vertical"/>
         </Grid>
         <Grid item xs={8}>
-          <GroupPane selectedGroup={selectedGroup} />
+          <GroupPane 
+            selectedGroup={selectedGroup} 
+            campaign={campaign} 
+            baseURL={baseURL}
+            setSelectedGroup={setSelectedGroup}
+            chooseCampaign={chooseCampaign}
+            selectedMember={selectedMember}
+            setSelectedMember={setSelectedMember}
+          />
         </Grid>
       </Grid>
     </Container>

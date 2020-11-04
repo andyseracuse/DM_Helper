@@ -5,6 +5,7 @@ const memberSchema = new Schema({
   voice: String,
   notes: String,
   photo: String,
+  charachterSheetUrl: String,
   name: {
     type: String,
     required: true

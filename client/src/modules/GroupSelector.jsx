@@ -26,7 +26,9 @@ export default function GroupSelector({
   chooseCampaign, 
   selectedGroup, 
   setSelectedGroup,
-  baseURL
+  baseURL,
+  selectedMember,
+  setSelectedMember
 }) {
   const classes = useStyles();
 
@@ -53,7 +55,7 @@ export default function GroupSelector({
       key: 'name',
       name: 'Name',
       validations: {required: true},
-      errorMessage: 'Please enter a title',
+      errorMessage: 'Please enter a name',
       type: 'text',
       sm: 6
     },
@@ -61,7 +63,7 @@ export default function GroupSelector({
       key: 'persuasion',
       validations: {required: true, validate: value => ['with', 'for', 'against'].includes(value)},
       name: 'persuasion',
-      errorMessage: 'Please select a persuasion',
+      errorMessage: 'Please chose a persuasion from "with", "for", or "against"',
       type: 'text',
       sm: 6,
     }
@@ -90,7 +92,10 @@ export default function GroupSelector({
                 className={classes.groupButton} 
                 color="primary" 
                 variant={ selectedGroup._id === group._id ? "contained" : "outlined"}
-                onClick={() => setSelectedGroup(group)}
+                onClick={() => {
+                  setSelectedGroup(group);
+                  setSelectedMember({default: true})
+                }}
               >
                 {group.name}
               </Button>

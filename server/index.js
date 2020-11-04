@@ -73,7 +73,8 @@ app.post('/campaigns/:id/NPCs/groups', function(req, res) {
 app.get('/groups/:groupId', function(req, res) {
   db.getGroup(req.params.groupId)
     .then((dbResponse) => {
-      res.status(204);
+      console.log(dbResponse)
+      res.status(200);
       res.send(dbResponse)
     })
     .catch((err) => {
@@ -109,8 +110,8 @@ app.post('/campaigns/:campaignId/NPCs/groups/:groupId/members', function(req, re
       res.sendStatus(500)
     })
 })
-app.get('/members/:memberId', function(req, res){
-  db.getGroup(req.params.memberId)
+app.get('/members/:groupId', function(req, res){
+  db.getGroup(req.params.groupId)
     .then((response) => {
       res.status(200)
       res.send(response)

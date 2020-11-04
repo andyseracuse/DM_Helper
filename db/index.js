@@ -50,8 +50,9 @@ const createGroup = async function(campaignId, body) {
 }
 
 const getGroup = async function(groupId) {
-  const group = await Group.findById(groupId);
-  return group;
+  return Group.findById(groupId)
+    .populate({path: 'members'})
+    .then((group) => {return group})
 }
 
 const updateGroup = async function(groupId, body) {
