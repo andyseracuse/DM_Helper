@@ -7,7 +7,7 @@ const FormModal = ({ modal, setModal, children, modalHeader, toggle }) => {
   return (
     <div>
       <Modal toggle={toggle} isOpen={modal}>
-        <div className="ajs-flex-column">
+        <div className="ajs-column-flex">
           <ModalHeader>{modalHeader}</ModalHeader>
         </div>
         <ModalBody>

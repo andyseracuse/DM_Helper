@@ -1,12 +1,13 @@
 import React from 'react'
 import { Grid, Container,Paper, Avatar } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles';
-import { Row, Col } from 'reactstrap'
+import { Row, Col } from 'reactstrap';
+import InfoPaneButtons from './InfoPaneButtons'
 
 
 
 
-export default function InfoPane({ selectedMember, selectedGroup }) {
+export default function InfoPane({ setSelectedMember, selectedMember, selectedGroup, baseURL, getGroup }) {
   const useStyles = makeStyles((theme) => ({
     memberPhoto: {
       width: '100%',
@@ -87,7 +88,7 @@ export default function InfoPane({ selectedMember, selectedGroup }) {
               <Grid className={classes.nextRow} item xs={7}>
                 <Paper>
                   <div className={classes.fullCenter}>
-                  {selectedMember.voice ? selectedMember.notes : 'oh no! No voice!'}
+                  {selectedMember.voice ? selectedMember.voice : 'oh no! No voice!'}
                   </div>
                 </Paper>
               </Grid>
@@ -106,7 +107,7 @@ export default function InfoPane({ selectedMember, selectedGroup }) {
             </Grid>
           </Col>
           <Col xs={4}>
-            {selectedMember.characterSheetUrl ? <div className={classes.charSheetActive}></div> : <div className={classes.charSheet}>No Character Sheet</div>}
+            <InfoPaneButtons setSelectedMember={setSelectedMember} getGroup={getGroup} baseURL={baseURL} selectedMember={selectedMember}/>
           </Col>
         </Row>
       </Container>

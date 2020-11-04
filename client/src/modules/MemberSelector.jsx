@@ -29,9 +29,10 @@ export default function MemberSelector({
     },
     carouselItem: {
       paddingTop: 25,
-      display: 'flex',
+      display: 'flex  !important',
       flexDirection: 'column',
-      alignItems: 'center'
+      alignItems: 'center',
+      margin: 'auto'
     },
     large: {
       width: theme.spacing(6),
@@ -93,6 +94,7 @@ export default function MemberSelector({
       name: 'Notes',
       errorMessage: 'Please chose a persuasion from "with", "for", or "against"',
       type: 'text',
+      multiline: true,
       sm: 12,
     }
   ]
@@ -111,7 +113,7 @@ export default function MemberSelector({
       .then(() => {
         axios({
           method: 'get',
-          url: baseURL + '/members/' + selectedGroup._id
+          url: baseURL + '/groups/' + selectedGroup._id
         })
           .then((response) => {
             console.log(response)

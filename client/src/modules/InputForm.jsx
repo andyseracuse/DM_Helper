@@ -75,6 +75,10 @@ export default function InputForm({ inputs, submitFxn, modalToggle }) {
                         name={input.key}
                         autoFocus
                         className={classes.input}
+                        multiline={!!input.multiline}
+                        rows={4}
+                        rowsMax={5}
+                        defaultValue={input.startVal ? input.startVal : ''}
                       />
                       {errors[input.key] && <p className='ajs-form-error'>{input.errorMessage}</p>}
                     </Grid>

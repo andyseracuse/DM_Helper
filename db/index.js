@@ -75,6 +75,11 @@ const createMember = async function(body, groupId){
   return member
 }
 
+const getMember = async function(memberId){
+  const member = await Member.findById(memberId);
+  return member
+}
+
 const updateMember = async function(memberId, body){
   return await Member.findByIdAndUpdate(memberId, body);
 }
@@ -94,5 +99,6 @@ module.exports = {
   deleteGroup: deleteGroup,
   createMember: createMember,
   updateMember: updateMember,
-  deleteMember: deleteMember
+  deleteMember: deleteMember,
+  getMember: getMember
 };

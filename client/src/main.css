@@ -12,6 +12,38 @@
   display: inline;
   content: "⚠ ";
 }
+.spaceAround{
+  justify-content: space-evenly;
+  height: 100%;
+  padding-top: 90%;
+}
+.ajs-container:hover > button{
+  width: 50% !important
+}
+.ajs-container{
+  height: 100px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.ajs-container{
+  margin: 5px 0 5px 0;
+}
+.ajs-container > div > svg{
+  display: none
+}
+.ajs-container:hover > div > svg{
+  display: flex;
+}
+.ajs-container:hover > div{
+  display: flex;
+  margin-right: 5%;
+  margin-left: 5%;
+}
+.ajs-container:hover{
+  justify-content: center;
+}
 
 
 /* MUI BEING DUMB HAD TO USE THIS CLASS IF THERES A COLLISION ITS PROBABLY HERE */

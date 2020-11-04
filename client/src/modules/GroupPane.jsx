@@ -2,7 +2,8 @@ import React, {useState} from 'react';
 import { Paper } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import MemberSelector from './MemberSelector'
-import InfoPane from './InfoPane'
+import InfoPane from './InfoPane';
+import axios from 'axios'
 
 const useStyles = makeStyles((theme) => ({
   groupPane: {
@@ -24,7 +25,15 @@ export default function GroupPane({
 }) {
   const classes = useStyles();
 
-  
+  const getGroup = () => {
+    axios({
+      method: 'get',
+      url: baseURL + '/groups/' + selectedGroup._id,
+    })
+      .then((response) => {
+        setSelectedGroup(response.data)
+      })
+  }
   
 
   return (
@@ -39,7 +48,7 @@ export default function GroupPane({
           selectedMember={selectedMember}
           setSelectedMember={setSelectedMember}
         />
-        <InfoPane selectedMember={selectedMember} selectedGroup={selectedGroup}/>
+        <InfoPane setSelectedMember={setSelectedMember} getGroup={getGroup} baseURL={baseURL} selectedMember={selectedMember} selectedGroup={selectedGroup}/>
       </Paper>
     </div>
   )
