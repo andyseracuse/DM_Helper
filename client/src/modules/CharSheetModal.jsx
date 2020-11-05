@@ -5,7 +5,6 @@ import CampaignButtons from './CampaignButtons.jsx';
 import Magnifier from 'react-magnifier';
 
 const CharSheetModal = ({ modal, setModal, modalHeader, toggle, selectedMember }) => {
-
   const useStyles = makeStyles((theme) => ({
       charSheetContainer: {
         margin: 'auto',
@@ -31,9 +30,7 @@ const CharSheetModal = ({ modal, setModal, modalHeader, toggle, selectedMember }
         <ModalBody>
           {/* <div className={classes.charSheet}></div> */}
           <div className={classes.charSheet}>
-            {()=>{
-              <Magnifier src={selectedMember.characterSheetUrl} mgHeight={200} mgWidth={200} className={classes.charSheet}/>
-            }}
+              <Magnifier src={selectedMember.charachterSheetUrl} mgHeight={200} mgWidth={200} className={classes.charSheet}/>
           </div>
         </ModalBody>
       </Modal>

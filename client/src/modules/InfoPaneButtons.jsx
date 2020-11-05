@@ -6,7 +6,7 @@ import FormModal from './FormModal'
 import CharSheetModal from './CharSheetModal'
 import InputForm from './InputForm'
 import axios from 'axios';
-
+import Magnifier from 'react-magnifier';
 
 
 
@@ -126,8 +126,8 @@ export default function InfoPaneButtons( { selectedMember, setSelectedMember, ba
       startVal: selectedMember.voice
     },
     {
-      key: 'charachterSheetURL',
-      name: 'Character Sheet URL',
+      key: 'charachterSheetUrl',
+      name: 'Character Sheet Url',
       errorMessage: 'Please chose a persuasion from "with", "for", or "against"',
       type: 'text',
       sm: 6,
@@ -160,12 +160,7 @@ export default function InfoPaneButtons( { selectedMember, setSelectedMember, ba
         toggle={charSheetModalToggle}
         modalHeader={selectedMember.name + "'s Character Sheet"}
         selectedMember={selectedMember}
-      >
-        <div className={classes.charSheetContainer}>
-         hello
-          <img className={classes.charSheet} src={selectedMember.charsheetUrl}/>
-        </div >
-      </CharSheetModal>
+      />
       <FormModal
         modal={editCharModal}
         setModal={setEditCharModal}

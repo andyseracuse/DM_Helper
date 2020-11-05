@@ -78,8 +78,8 @@ export default function MemberSelector({
       sm: 6,
     },
     {
-      key: 'charachterSheetURL',
-      name: 'Character Sheet URL',
+      key: 'charachterSheetUrl',
+      name: 'Character Sheet Url',
       errorMessage: 'Please chose a persuasion from "with", "for", or "against"',
       type: 'text',
       sm: 6,
