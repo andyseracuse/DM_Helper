@@ -38,7 +38,7 @@ const useStyles = makeStyles((theme) => ({
 export default function GroupsView({ campaign, baseURL, chooseCampaign }) {
   const classes = useStyles();
 
-  const [selectedGroup, setSelectedGroup] = useState({members:[], default:true});
+  const [selectedGroup, setSelectedGroup] = useState({default:true, members:[]});
   const [selectedMember, setSelectedMember] = useState({default: true})
 
   return (

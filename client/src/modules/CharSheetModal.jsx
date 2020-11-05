@@ -31,7 +31,9 @@ const CharSheetModal = ({ modal, setModal, modalHeader, toggle, selectedMember }
         <ModalBody>
           {/* <div className={classes.charSheet}></div> */}
           <div className={classes.charSheet}>
-            <Magnifier src={selectedMember.characterSheetUrl} mgHeight={200} mgWidth={200} className={classes.charSheet}/>
+            {()=>{
+              <Magnifier src={selectedMember.characterSheetUrl} mgHeight={200} mgWidth={200} className={classes.charSheet}/>
+            }}
           </div>
         </ModalBody>
       </Modal>

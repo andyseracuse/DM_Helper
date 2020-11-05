@@ -5,25 +5,23 @@ import axios from 'axios';
 import FormModal from './FormModal'
 import InputForm from './InputForm'
 import Slider from 'react-slick'
-import ActualMemberSelector from './ActualMemberSelector'
 
-export default function MemberSelector({
+export default function ActualMemberSelector({ 
   selectedGroup, 
-  campaign, 
-  setSelectedGroup, 
-  baseURL, 
-  chooseCampaign,
-  setSelectedMember,
-  selectedMember,
+  toggleMemberModal, 
+  createMemberModal,
+  setCreateMemberModal,
+  createMember,
+  setSelectedMember
 }) {
 
-  ////////////////////////////////////////////////
-  ////Styles
-  ////////////////////////////////////////////////
   const settings = {
+    dots: true,
+    infinite: true,
     speed: 500,
     slidesToShow: 4,
-    slidesToScroll: 4
+    slidesToScroll: 4,
+    infinite: false
   }
   const useStyles = makeStyles((theme) => ({
     root: {
@@ -57,10 +55,9 @@ export default function MemberSelector({
       paddingTop: 25
     }
   }));
+
   const classes = useStyles();
-  ////////////////////////////////////////////////////////
-  ///////vars
-  /////////////////////////////////////////////////////
+
   const createMemberInputs=[
     {
       key: 'name',
@@ -100,33 +97,22 @@ export default function MemberSelector({
       sm: 12,
     }
   ]
-  ///////////////////////////////////////////////////
-  /////states
-  /////////////////////////////////////////////////
-  const [createMemberModal, setCreateMemberModal] = useState(false)
-  const toggleMemberModal = () => setCreateMemberModal(!createMemberModal)
 
-  const createMember = (body) => {
-    axios({
-      method: 'post',
-      url: baseURL + '/campaigns/' + campaign._id + '/NPCs/groups/' + selectedGroup._id + '/members',
-      data: body
-    })
-      .then(() => {
-        axios({
-          method: 'get',
-          url: baseURL + '/groups/' + selectedGroup._id
-        })
-          .then((response) => {
-            console.log(response)
-            setSelectedGroup(response.data);
-            toggleMemberModal();
-          })
-      })
-  }
-  return(
-    <div>
-      <FormModal
+
+    if (selectedGroup.members.length === 0 && selectedGroup.default === undefined){
+      return(
+        <div  className={"ajs-column-flex " + classes.empty}>
+          <Avatar onClick={toggleMemberModal} className={classes.large}>+</Avatar>
+          <p>
+            Create New
+          </p>
+        </div>
+      )
+    }
+    if(selectedGroup.default === undefined && selectedGroup.members.length !== 0){
+      return (
+        <div className={classes.root}>
+        <FormModal
           modal={createMemberModal}
           setModal={setCreateMemberModal}
           toggle={toggleMemberModal}
@@ -138,16 +124,32 @@ export default function MemberSelector({
             modalToggle={toggleMemberModal}
           />
         </FormModal>
-        <ActualMemberSelector 
-          selectedGroup={selectedGroup}
-          toggleMemberModal={toggleMemberModal}
-          createMemberModal={createMemberModal}
-          setCreateMemberModal={setCreateMemberModal}
-          createMember={createMember}
-          setSelectedMember={setSelectedMember}
-        />
-    </div>
-  )
+        <Slider
+          {...settings}
+        >
+          { 
+            selectedGroup.members.map((member, index) => {
+              return (
+                <div className={classes.carouselItem}>
+                  <Avatar onClick={() => setSelectedMember(member)} src={member.photo !== undefined ? member.photo : null} className={classes.large}>{member.name}</Avatar>
+                  <p>
+                    {member.name}
+                  </p>
+                </div>
+              )
+            })
+          }
+          <div onClick={toggleMemberModal} className={classes.carouselItem}>
+            <Avatar className={classes.large}>+</Avatar>
+            <p>
+              Create New
+            </p>
+          </div>
+        </Slider>
+      </div>
+      )
+    }else{
+      return <div></div>
+    }
+    
 }
-  
-

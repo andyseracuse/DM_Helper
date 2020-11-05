@@ -86,10 +86,13 @@ const App = () => {
         toggle={() => {}}
       >
         <CampaignButtons 
+          baseURL={baseURL}
           campaigns={campaigns} 
           chooseCampaign={chooseCampaign}
           toggle={campaignButtonModalToggle}
           createCampaignModalToggle={createCampaignModalToggle}
+          getcampaigns={getcampaigns}
+          campaign={campaign}
         />
       </FormModal>
       <FormModal

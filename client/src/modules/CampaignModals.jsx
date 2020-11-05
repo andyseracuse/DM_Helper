@@ -1,0 +1,66 @@
+import React, { useState } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
+import FormModal from './FormModal';
+import { red, } from "@material-ui/core/colors";
+import axios from 'axios';
+import { Grid, Button } from '@material-ui/core'
+
+export default function CampaignModals({ deleteCampaignModal, setDeleteCampaignModal, toggledeleteCampaignModal, editCampaignModal, toggleEditCampaignModal, getcampaigns, toggleCampaignButtonModal, baseURL, campaign }) {
+
+  const deleteCampaign = () => {
+    axios({
+      method: 'delete',
+      url: baseURL + '/campaigns/' + campaign._id,
+    })
+      .then(() => {
+        getcampaigns();
+        toggledeleteCampaignModal();
+      })
+  }
+
+  const useStyles = makeStyles((theme) => ({
+    containedRed: {
+      color: theme.palette.getContrastText(red[500]),
+      backgroundColor: red[500],
+      "&:hover": {
+        backgroundColor: red[700],
+        // Reset on touch devices, it doesn't add specificity
+        "@media (hover: none)": {
+          backgroundColor: red[500]
+        },
+        width: '100%'
+      },
+    },
+    warn: {
+      margin: '0 5% 0 15%',
+      textAlign: 'center',
+      color: '#d54f46'
+    },
+    deleteContainer: {
+      margin: '0 10% 0 10%'
+    }
+  }));
+  const classes = useStyles();
+
+  return (
+    <div>
+      <FormModal
+        modal={deleteCampaignModal}
+        setModal={setDeleteCampaignModal}
+        toggle={toggledeleteCampaignModal}
+        modalHeader="Create a New Campaign"
+      >
+          <div className={classes.deleteContainer} >
+            <Grid container spacing={2}>
+              <Grid item xs={12}>
+                <h4 className={classes.warn}>Are you sure you want to delete?</h4>
+              </Grid>
+              <Grid item xs={12}>
+              <Button onClick={deleteCampaign} fullWidth className={classes.containedRed}>Delete Member</Button>
+              </Grid>
+            </Grid>
+          </div>
+      </FormModal>
+    </div>
+  )
+}
