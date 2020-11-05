@@ -33,6 +33,13 @@ const createCampaign = function(body) {
   })
 }
 
+const updateCampaign= async function(campaignId, body){
+  if(body.image === ''){
+    body = {title: body.title}
+  }
+  return await Campaign.findByIdAndUpdate(campaignId, body);
+}
+
 const deleteCampaign = function(id) {
   return Campaign.findByIdAndRemove(id)
 }
@@ -100,5 +107,6 @@ module.exports = {
   createMember: createMember,
   updateMember: updateMember,
   deleteMember: deleteMember,
-  getMember: getMember
+  getMember: getMember,
+  updateCampaign: updateCampaign
 };

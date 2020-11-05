@@ -44,6 +44,16 @@ app.delete('/campaigns/:id', function(req, res) {
       res.sendStatus('500')
     })
 })
+app.put('/campaigns/:campaignId', function(req, res){
+  db.updateCampaign(req.params.campaignId, req.body)
+    .then(() => {
+      res.sendStatus(204);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.sendStatus(500)
+    })
+})
 
 app.post('/campaigns/', function(req, res) {
   db.createCampaign(req.body)

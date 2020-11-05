@@ -16,8 +16,6 @@ export default function ActualMemberSelector({
 }) {
 
   const settings = {
-    dots: true,
-    infinite: true,
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 4,
@@ -32,7 +30,8 @@ export default function ActualMemberSelector({
       display: 'flex  !important',
       flexDirection: 'column',
       alignItems: 'center',
-      margin: 'auto'
+      margin: 'auto',
+      textAlign: 'center'
     },
     large: {
       width: theme.spacing(6),
@@ -102,7 +101,7 @@ export default function ActualMemberSelector({
     if (selectedGroup.members.length === 0 && selectedGroup.default === undefined){
       return(
         <div  className={"ajs-column-flex " + classes.empty}>
-          <Avatar onClick={toggleMemberModal} className={classes.large}>+</Avatar>
+          <Avatar color="secondary" onClick={toggleMemberModal} className={classes.large}>+</Avatar>
           <p>
             Create New
           </p>

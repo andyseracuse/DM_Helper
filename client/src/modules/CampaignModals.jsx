@@ -4,8 +4,9 @@ import FormModal from './FormModal';
 import { red, } from "@material-ui/core/colors";
 import axios from 'axios';
 import { Grid, Button } from '@material-ui/core'
+import InputForm from './InputForm'
 
-export default function CampaignModals({ deleteCampaignModal, setDeleteCampaignModal, toggledeleteCampaignModal, editCampaignModal, toggleEditCampaignModal, getcampaigns, toggleCampaignButtonModal, baseURL, campaign }) {
+export default function CampaignModals({ deleteCampaignModal, setDeleteCampaignModal, setEditCampaignModal, toggledeleteCampaignModal, editCampaignModal, toggleEditCampaignModal, getcampaigns, toggleCampaignButtonModal, baseURL, campaign }) {
 
   const deleteCampaign = () => {
     axios({
@@ -15,6 +16,17 @@ export default function CampaignModals({ deleteCampaignModal, setDeleteCampaignM
       .then(() => {
         getcampaigns();
         toggledeleteCampaignModal();
+      })
+  }
+  const editCampaign = (body) => {
+    axios({
+      method: 'put',
+      url: baseURL + '/campaigns/' + campaign._id,
+      data: body
+    })
+      .then(() => {
+        getcampaigns();
+        toggleEditCampaignModal();
       })
   }
 
@@ -42,6 +54,24 @@ export default function CampaignModals({ deleteCampaignModal, setDeleteCampaignM
   }));
   const classes = useStyles();
 
+  const editCampaignInputs=[
+    {
+      key: 'title',
+      name: 'Title',
+      validations: {required: true},
+      errorMessage: 'Please enter a title',
+      type: 'text',
+      sm: 6
+    },
+    {
+      key: 'image',
+      name: 'Photo Url',
+      errorMessage: 'Please enter a photo Url',
+      type: 'text',
+      sm: 6
+    }
+  ]
+
   return (
     <div>
       <FormModal
@@ -60,6 +90,18 @@ export default function CampaignModals({ deleteCampaignModal, setDeleteCampaignM
               </Grid>
             </Grid>
           </div>
+      </FormModal>
+      <FormModal
+        modal={editCampaignModal}
+        setModal={setEditCampaignModal}
+        toggle={toggleEditCampaignModal}
+        modalHeader={`Update ${campaign.title}`}
+      >
+        <InputForm
+          inputs={editCampaignInputs}
+          submitFxn={editCampaign}
+          modalToggle={toggleEditCampaignModal}
+        />
       </FormModal>
     </div>
   )
