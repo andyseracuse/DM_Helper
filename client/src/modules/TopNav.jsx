@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function TopNav({ campaignButtonModalToggle }) {
+export default function TopNav({ campaignButtonModalToggle, getcampaigns }) {
   const classes = useStyles();
 
   const [isOpen, setIsOpen] = useState(false);
@@ -72,7 +72,10 @@ export default function TopNav({ campaignButtonModalToggle }) {
               className={classes.divider}
             />
             <NavItem className={classes.navItem}>
-              <NavLink onClick={campaignButtonModalToggle}>Campaigns</NavLink>
+              <NavLink onClick={() => {
+                getcampaigns();
+                campaignButtonModalToggle();
+              }}>Campaigns</NavLink>
             </NavItem>  
             <Divider 
               orientation="vertical" 

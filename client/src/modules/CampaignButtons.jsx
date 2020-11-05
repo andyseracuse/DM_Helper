@@ -6,7 +6,17 @@ import campaign from '../../../../../../database-mongo/models/campaign';
 import CampaignModals from './CampaignModals.jsx'
 
 
-export default function CampaignButtons({ campaigns, getcampaigns, chooseCampaign, createCampaignModalToggle, toggle, baseURL, campaign }) {
+export default function CampaignButtons({ 
+  campaigns, 
+  getcampaigns, 
+  chooseCampaign, 
+  createCampaignModalToggle, 
+  toggle, 
+  baseURL, 
+  campaign,
+  setSelectedMember,
+  setSelectedGroup
+}) {
   const images = campaigns.map((campaign => {
     return ({
       url: campaign.image,
@@ -170,6 +180,9 @@ export default function CampaignButtons({ campaigns, getcampaigns, chooseCampaig
               width: image.width,
             }}
             onClick={()=> {
+              setSelectedMember({default: true})
+              setSelectedGroup({default: true, members: []})
+              console.log('image',image.id)
               chooseCampaign(image.id);
               toggle();
             }}

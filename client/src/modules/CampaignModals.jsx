@@ -78,7 +78,7 @@ export default function CampaignModals({ deleteCampaignModal, setDeleteCampaignM
         modal={deleteCampaignModal}
         setModal={setDeleteCampaignModal}
         toggle={toggledeleteCampaignModal}
-        modalHeader="Create a New Campaign"
+        modalHeader={`Delete ${campaign.title}`}
       >
           <div className={classes.deleteContainer} >
             <Grid container spacing={2}>
@@ -86,7 +86,7 @@ export default function CampaignModals({ deleteCampaignModal, setDeleteCampaignM
                 <h4 className={classes.warn}>Are you sure you want to delete?</h4>
               </Grid>
               <Grid item xs={12}>
-              <Button onClick={deleteCampaign} fullWidth className={classes.containedRed}>Delete Member</Button>
+              <Button onClick={deleteCampaign} fullWidth className={classes.containedRed}>Delete Campaign</Button>
               </Grid>
             </Grid>
           </div>

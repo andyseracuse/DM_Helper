@@ -20,6 +20,9 @@ const App = () => {
   
   const [campaigns, setcampaigns] = useState([])
   const [campaign, setCampaign] = useState({title:'', NPCs:{groups:[]}})
+  const [selectedMember, setSelectedMember] = useState({default: true})
+  const [selectedGroup, setSelectedGroup] = useState({default:true, members:[]});
+
 
   const getcampaigns = () => {
     axios.get(baseURL + '/campaigns')
@@ -29,6 +32,7 @@ const App = () => {
       .catch(err => console.log(err))
   }
   const chooseCampaign = (id) => {
+    console.log('in choose campaign')
     axios.get(baseURL + '/campaigns/' + id)
       .then((response) => {
         setCampaign(response.data)
@@ -93,12 +97,17 @@ const App = () => {
           createCampaignModalToggle={createCampaignModalToggle}
           getcampaigns={getcampaigns}
           campaign={campaign}
+          setSelectedGroup={setSelectedGroup}
+          setSelectedMember={setSelectedMember}
         />
       </FormModal>
       <FormModal
         modal={createCampaignModal}
         setModal={setCreateCampaignModal}
         toggle={()=>{
+          setSelectedGroup({default:true, members:[]})
+          setSelectedMember({default: true})
+          setSelectedMember({default: true})
           createCampaignModalToggle();
           campaignButtonModalToggle();
         }}
@@ -106,15 +115,27 @@ const App = () => {
       >
         <InputForm
           inputs={createCampaignInputs}
-          submitFxn={createCampaign}
-          modalToggle={createCampaignModalToggle}
+          submitFxn={(body) => {
+            setSelectedGroup({default:true, members:[]})
+            setSelectedMember({default: true})
+            createCampaign(body)
+          }}
+          modalToggle={() => {
+            setSelectedGroup({default:true, members:[]})
+            setSelectedMember({default: true})
+            createCampaignModalToggle()
+          }}
         />
       </FormModal>
-      <TopNav campaignButtonModalToggle={campaignButtonModalToggle} />
+      <TopNav campaignButtonModalToggle={campaignButtonModalToggle} getcampaigns={getcampaigns} />
       <GroupsView 
         campaign={campaign} 
         baseURL={baseURL} 
         chooseCampaign={chooseCampaign}
+        selectedMember={selectedMember}
+        setSelectedMember={setSelectedMember}
+        selectedGroup={selectedGroup}
+        setSelectedGroup={setSelectedGroup}
       />
     </div>
   )

@@ -35,11 +35,17 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function GroupsView({ campaign, baseURL, chooseCampaign }) {
+export default function GroupsView({ 
+  campaign, 
+  baseURL, 
+  chooseCampaign, 
+  selectedMember, 
+  setSelectedMember,
+  selectedGroup,
+  setSelectedGroup
+}) {
   const classes = useStyles();
 
-  const [selectedGroup, setSelectedGroup] = useState({default:true, members:[]});
-  const [selectedMember, setSelectedMember] = useState({default: true})
 
   return (
     <Container component="main" maxWidth="md">
