@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Typography from '@material-ui/core/Typography';
-import campaign from '../../../../../../database-mongo/models/campaign';
 import CampaignModals from './CampaignModals.jsx'
 
 

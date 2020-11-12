@@ -19,7 +19,7 @@ const App = () => {
   const createCampaignModalToggle = () => setCreateCampaignModal(!createCampaignModal);
   
   const [campaigns, setcampaigns] = useState([])
-  const [campaign, setCampaign] = useState({title:'', NPCs:{groups:[]}})
+  const [campaign, setCampaign] = useState({title:'', NPCs:{groups:[]}, default: true})
   const [selectedMember, setSelectedMember] = useState({default: true})
   const [selectedGroup, setSelectedGroup] = useState({default:true, members:[]});
 
@@ -87,7 +87,12 @@ const App = () => {
         modal={campaignButtonModal} 
         setModal={setCampaignButtonModal} 
         modalHeader="Select or Create A Campaign"
-        toggle={() => {}}
+        toggle={() => {
+          console.log(campaign.default)
+          if(campaign.default === undefined){
+            campaignButtonModalToggle();
+          }
+        }}
       >
         <CampaignButtons 
           baseURL={baseURL}

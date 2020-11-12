@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Avatar } from '@material-ui/core';
+import { Avatar, Divider } from '@material-ui/core';
 import axios from 'axios';
 import FormModal from './FormModal'
 import InputForm from './InputForm'
@@ -146,6 +146,7 @@ export default function MemberSelector({
           createMember={createMember}
           setSelectedMember={setSelectedMember}
         />
+        <Divider />
     </div>
   )
 }

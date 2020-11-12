@@ -4,7 +4,9 @@
   align-items: center;
   text-align: center;
 }
-
+.ajs-select-wont-100{
+  width: 100%;
+}
 .ajs-form-error {
   color: #bf1650;
 }

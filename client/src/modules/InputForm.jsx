@@ -12,7 +12,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { useForm } from 'react-hook-form';
+import { useForm, Controller } from 'react-hook-form';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
@@ -35,13 +35,17 @@ export default function InputForm({ inputs, submitFxn, modalToggle }) {
     },
     input: {
       marginTop: 0,
-      marginBottom: 0
+      marginBottom: 0,
+      width: '100%'
+    },
+    fullWidth: {
+      width: '100%'
     }
   }));
   
 
   const classes = useStyles();
-  const { register, handleSubmit, errors } = useForm()
+  const { register, handleSubmit, errors, control } = useForm()
   console.log('inputs', inputs)
   return (
     <Container component="main" maxWidth="xs">
@@ -93,28 +97,32 @@ export default function InputForm({ inputs, submitFxn, modalToggle }) {
                   return(
                     <Grid item sm={input.sm}>
                       <div classname="ajs-select-wont-100">
-                      <FormControl classname={classes.fullwidth} variant="outlined" className={classes.input}>
+                      <FormControl variant="outlined" className={classes.input}>
                         <InputLabel className={classes.fullWidth} id="demo-simple-select-outlined-label">{input.name}</InputLabel>
-                        <Select
-                          inputRef={register(input.validations)}
-                          labelId="demo-simple-select-outlined-label"
-                          id={input.name}
-                          value={selectInput}
-                          name={input.key}
-                          onChange={handleChange}
-                          label={input.name}
-                          required={input.validations.required === true ? true : false}
-                          fullWidth
-                          margin="normal"
-                          className={classes.fullWidth}
-                        >
-                          <MenuItem className={classes.fullWidth} value="">
-                            <em>persuasion</em>
-                          </MenuItem>
-                          {input.selectValues.map((value) => {
-                            return <MenuItem name={input.key} value={value}>{value}</MenuItem>
-                          })}
-                        </Select>
+                        <Controller as={
+                          <Select
+                            labelId="demo-simple-select-outlined-label"
+                            id={input.name}
+                            value={selectInput}
+                            onChange={handleChange}
+                            label={input.name}
+                            required={input.validations.required === true ? true : false}
+                            margin="normal"
+                            className={classes.fullWidth}
+                          >
+                            <MenuItem className={classes.fullWidth} value="">
+                              <em>persuasion</em>
+                            </MenuItem>
+                            {input.selectValues.map((value) => {
+                              return <MenuItem name={input.key} value={value}>{value}</MenuItem>
+                            })}
+                          </Select>
+                        }
+                        control={control}
+                        name={input.key}
+                        className="ajs-select-wont-100"
+                        rules={input.validations}
+                      />
                       </FormControl>
                       {errors[input.key] && (
                         <p className='ajs-form-error'>{input.errorMessage}</p>

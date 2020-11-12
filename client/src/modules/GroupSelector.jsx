@@ -1,7 +1,6 @@
 import React, {useState} from 'react';
 import { Button } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import campaign from '../../../../../../database-mongo/models/campaign';
 import FormModal from './FormModal';
 import InputForm from './InputForm';
 import axios from 'axios';
@@ -61,10 +60,11 @@ export default function GroupSelector({
     },
     {
       key: 'persuasion',
+      selectValues: ['with', 'against', 'nuetral'],
       validations: {required: true, validate: value => ['with', 'for', 'against'].includes(value)},
       name: 'persuasion',
       errorMessage: 'Please chose a persuasion from "with", "for", or "against"',
-      type: 'text',
+      type: 'dropdown',
       sm: 6,
     }
   ]
