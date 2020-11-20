@@ -8,6 +8,7 @@ import CampaignButtons from './modules/CampaignButtons'
 import TopNav from './modules/TopNav'
 import GroupsView from './modules/GroupsView'
 import axios from 'axios';
+import SignUp from './modules/SignUp';
 
 const baseURL = 'http://localhost:3000'
 
@@ -83,7 +84,8 @@ const App = () => {
 
   return(
     <div>
-      <FormModal 
+      <SignUp />
+      {/* <FormModal 
         modal={campaignButtonModal} 
         setModal={setCampaignButtonModal} 
         modalHeader="Select or Create A Campaign"
@@ -141,7 +143,7 @@ const App = () => {
         setSelectedMember={setSelectedMember}
         selectedGroup={selectedGroup}
         setSelectedGroup={setSelectedGroup}
-      />
+      /> */}
     </div>
   )
 }

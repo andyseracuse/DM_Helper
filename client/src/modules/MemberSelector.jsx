@@ -55,6 +55,10 @@ export default function MemberSelector({
     },
     empty: {
       paddingTop: 25
+    },
+    divider: {
+      marginBottom: 15,
+      width: '80%'
     }
   }));
   const classes = useStyles();
@@ -146,7 +150,9 @@ export default function MemberSelector({
           createMember={createMember}
           setSelectedMember={setSelectedMember}
         />
-        <Divider />
+        <div className={classes.centerOfPane}>
+          <Divider className={classes.divider} />
+        </div>
     </div>
   )
 }

@@ -46,7 +46,6 @@ export default function InputForm({ inputs, submitFxn, modalToggle }) {
 
   const classes = useStyles();
   const { register, handleSubmit, errors, control } = useForm()
-  console.log('inputs', inputs)
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -83,6 +82,31 @@ export default function InputForm({ inputs, submitFxn, modalToggle }) {
                         rows={4}
                         rowsMax={5}
                         defaultValue={input.startVal ? input.startVal : ''}
+                      />
+                      {errors[input.key] && <p className='ajs-form-error'>{input.errorMessage}</p>}
+                    </Grid>
+                  )
+                }
+                if(input.type === 'password') {
+                  input.validations === undefined ? input.validations = {} : null
+                  return(
+                    <Grid item sm={input.sm}>
+                      <TextField
+                        inputRef={register(input.validations)}
+                        variant="outlined"
+                        margin="normal"
+                        required={input.validations.required === true ? true : false}
+                        fullWidth
+                        id={input.name}
+                        label={input.name}
+                        name={input.key}
+                        autoFocus
+                        className={classes.input}
+                        multiline={!!input.multiline}
+                        rows={4}
+                        rowsMax={5}
+                        defaultValue={input.startVal ? input.startVal : ''}
+                        type = "password"
                       />
                       {errors[input.key] && <p className='ajs-form-error'>{input.errorMessage}</p>}
                     </Grid>
