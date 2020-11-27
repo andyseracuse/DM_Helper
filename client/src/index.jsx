@@ -9,6 +9,7 @@ import TopNav from './modules/TopNav'
 import GroupsView from './modules/GroupsView'
 import axios from 'axios';
 import SignUp from './modules/SignUp';
+import { AuthProvider } from './contexts/AuthContext'
 
 const baseURL = 'http://localhost:3000'
 
@@ -84,66 +85,68 @@ const App = () => {
 
   return(
     <div>
-      <SignUp />
-      {/* <FormModal 
-        modal={campaignButtonModal} 
-        setModal={setCampaignButtonModal} 
-        modalHeader="Select or Create A Campaign"
-        toggle={() => {
-          console.log(campaign.default)
-          if(campaign.default === undefined){
+      <AuthProvider>
+        {/* <FormModal 
+          modal={campaignButtonModal} 
+          setModal={setCampaignButtonModal} 
+          modalHeader="Select or Create A Campaign"
+          toggle={() => {
+            console.log(campaign.default)
+            if(campaign.default === undefined){
+              campaignButtonModalToggle();
+            }
+          }}
+        >
+          <CampaignButtons 
+            baseURL={baseURL}
+            campaigns={campaigns} 
+            chooseCampaign={chooseCampaign}
+            toggle={campaignButtonModalToggle}
+            createCampaignModalToggle={createCampaignModalToggle}
+            getcampaigns={getcampaigns}
+            campaign={campaign}
+            setSelectedGroup={setSelectedGroup}
+            setSelectedMember={setSelectedMember}
+          />
+        </FormModal>
+        <FormModal
+          modal={createCampaignModal}
+          setModal={setCreateCampaignModal}
+          toggle={()=>{
+            setSelectedGroup({default:true, members:[]})
+            setSelectedMember({default: true})
+            setSelectedMember({default: true})
+            createCampaignModalToggle();
             campaignButtonModalToggle();
-          }
-        }}
-      >
-        <CampaignButtons 
-          baseURL={baseURL}
-          campaigns={campaigns} 
+          }}
+          modalHeader="Create a New Campaign"
+        >
+          <InputForm
+            inputs={createCampaignInputs}
+            submitFxn={(body) => {
+              setSelectedGroup({default:true, members:[]})
+              setSelectedMember({default: true})
+              createCampaign(body)
+            }}
+            modalToggle={() => {
+              setSelectedGroup({default:true, members:[]})
+              setSelectedMember({default: true})
+              createCampaignModalToggle()
+            }}
+          />
+        </FormModal>
+        <TopNav campaignButtonModalToggle={campaignButtonModalToggle} getcampaigns={getcampaigns} />
+        <GroupsView 
+          campaign={campaign} 
+          baseURL={baseURL} 
           chooseCampaign={chooseCampaign}
-          toggle={campaignButtonModalToggle}
-          createCampaignModalToggle={createCampaignModalToggle}
-          getcampaigns={getcampaigns}
-          campaign={campaign}
-          setSelectedGroup={setSelectedGroup}
+          selectedMember={selectedMember}
           setSelectedMember={setSelectedMember}
-        />
-      </FormModal>
-      <FormModal
-        modal={createCampaignModal}
-        setModal={setCreateCampaignModal}
-        toggle={()=>{
-          setSelectedGroup({default:true, members:[]})
-          setSelectedMember({default: true})
-          setSelectedMember({default: true})
-          createCampaignModalToggle();
-          campaignButtonModalToggle();
-        }}
-        modalHeader="Create a New Campaign"
-      >
-        <InputForm
-          inputs={createCampaignInputs}
-          submitFxn={(body) => {
-            setSelectedGroup({default:true, members:[]})
-            setSelectedMember({default: true})
-            createCampaign(body)
-          }}
-          modalToggle={() => {
-            setSelectedGroup({default:true, members:[]})
-            setSelectedMember({default: true})
-            createCampaignModalToggle()
-          }}
-        />
-      </FormModal>
-      <TopNav campaignButtonModalToggle={campaignButtonModalToggle} getcampaigns={getcampaigns} />
-      <GroupsView 
-        campaign={campaign} 
-        baseURL={baseURL} 
-        chooseCampaign={chooseCampaign}
-        selectedMember={selectedMember}
-        setSelectedMember={setSelectedMember}
-        selectedGroup={selectedGroup}
-        setSelectedGroup={setSelectedGroup}
-      /> */}
+          selectedGroup={selectedGroup}
+          setSelectedGroup={setSelectedGroup}
+        /> */}
+        <SignUp />
+      </AuthProvider>
     </div>
   )
 }

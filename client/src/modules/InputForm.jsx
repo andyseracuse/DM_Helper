@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -12,7 +12,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm, Controller, errors, watch } from 'react-hook-form';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
 import FormHelperText from '@material-ui/core/FormHelperText';
@@ -45,7 +45,10 @@ export default function InputForm({ inputs, submitFxn, modalToggle }) {
   
 
   const classes = useStyles();
-  const { register, handleSubmit, errors, control } = useForm()
+  const { register, handleSubmit, errors, control, watch } = useForm()
+  const password = useRef({});
+  password.current = watch("password", "")
+
   return (
     <Container component="main" maxWidth="xs">
       <CssBaseline />
@@ -88,7 +91,9 @@ export default function InputForm({ inputs, submitFxn, modalToggle }) {
                   )
                 }
                 if(input.type === 'password') {
+                  
                   input.validations === undefined ? input.validations = {} : null
+                  input.key === 'repeat_password' ? input.validations.validate = (value) => value === watch('password', '') : undefined
                   return(
                     <Grid item sm={input.sm}>
                       <TextField
@@ -108,7 +113,36 @@ export default function InputForm({ inputs, submitFxn, modalToggle }) {
                         defaultValue={input.startVal ? input.startVal : ''}
                         type = "password"
                       />
-                      {errors[input.key] && <p className='ajs-form-error'>{input.errorMessage}</p>}
+                      {errors[input.key] && (
+                        <p className='ajs-form-error'>{errors[input.key].message}</p>
+                      )}
+                    </Grid>
+                  )
+                }
+                if(input.type === 'repeat_password') {
+                  input.validations === undefined ? input.validations = {} : null
+                  return(
+                    <Grid item sm={input.sm}>
+                      <TextField
+                        inputRef={register({validate: (value) => value === password.current || 'The passwords do not match'})}
+                        variant="outlined"
+                        margin="normal"
+                        required={true}
+                        fullWidth
+                        id={input.name}
+                        label={input.name}
+                        name={input.key}
+                        autoFocus
+                        className={classes.input}
+                        multiline={!!input.multiline}
+                        rows={4}
+                        rowsMax={5}
+                        defaultValue={input.startVal ? input.startVal : ''}
+                        type = "password"
+                      />
+                      {errors[input.key] && (
+                        <p className='ajs-form-error'>The passwords do not match</p>
+                      )}
                     </Grid>
                   )
                 }
