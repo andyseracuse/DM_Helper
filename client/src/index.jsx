@@ -10,6 +10,7 @@ import Dashboard from './modules/Dashboard';
 import Login from './modules/Login'
 import PrivateRoute from './modules/PrivateRoute'
 import AuthRoute from './modules/AuthRoute'
+import ForgotPassword from './modules/ForgotPassword'
 
 const App = () => {
   
@@ -21,6 +22,7 @@ const App = () => {
           <Switch>
             <AuthRoute path={"/signup"} component={SignUp} />
             <AuthRoute path="/login" component={Login} />
+            <Route path="/forgot-password" component={ForgotPassword} />
             <PrivateRoute exact path="/" component={Dashboard} />
           </Switch>
         </AuthProvider>

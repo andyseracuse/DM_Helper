@@ -3,7 +3,7 @@ import { Route, Redirect } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 
 
-export default function LoginRoute({ component: Component, ...rest}) {
+export default function AuthRoute({ component: Component, ...rest}) {
   const { currentUser } = useAuth();
   console.log(currentUser)
   return (
