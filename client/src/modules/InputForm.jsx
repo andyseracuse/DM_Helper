@@ -19,7 +19,7 @@ import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select'
 
-export default function InputForm({ inputs, submitFxn, modalToggle }) {
+export default function InputForm({ inputs, submitFxn, modalToggle, submitDisable }) {
   const useStyles = makeStyles((theme) => ({
     paper: {
       display: 'flex',
@@ -69,7 +69,7 @@ export default function InputForm({ inputs, submitFxn, modalToggle }) {
                 if(input.type === 'text') {
                   input.validations === undefined ? input.validations = {} : null
                   return(
-                    <Grid item sm={input.sm}>
+                    <Grid item sm={input.sm} xs={input.xs}>
                       <TextField
                         inputRef={register(input.validations)}
                         variant="outlined"
@@ -95,7 +95,7 @@ export default function InputForm({ inputs, submitFxn, modalToggle }) {
                   input.validations === undefined ? input.validations = {} : null
                   input.key === 'repeat_password' ? input.validations.validate = (value) => value === watch('password', '') : undefined
                   return(
-                    <Grid item sm={input.sm}>
+                    <Grid item sm={input.sm} xs={input.xs}>
                       <TextField
                         inputRef={register(input.validations)}
                         variant="outlined"
@@ -122,7 +122,7 @@ export default function InputForm({ inputs, submitFxn, modalToggle }) {
                 if(input.type === 'repeat_password') {
                   input.validations === undefined ? input.validations = {} : null
                   return(
-                    <Grid item sm={input.sm}>
+                    <Grid item sm={input.sm} xs={input.xs}>
                       <TextField
                         inputRef={register({validate: (value) => value === password.current || 'The passwords do not match'})}
                         variant="outlined"
@@ -153,7 +153,7 @@ export default function InputForm({ inputs, submitFxn, modalToggle }) {
                     setSelectInput(event.target.value);
                   };
                   return(
-                    <Grid item sm={input.sm}>
+                    <Grid item sm={input.sm} xs={input.xs}>
                       <div classname="ajs-select-wont-100">
                       <FormControl variant="outlined" className={classes.input}>
                         <InputLabel className={classes.fullWidth} id="demo-simple-select-outlined-label">{input.name}</InputLabel>
@@ -198,6 +198,7 @@ export default function InputForm({ inputs, submitFxn, modalToggle }) {
             variant="contained"
             color="primary"
             className={classes.submit}
+            disabled={submitDisable}
           >
             Submit
           </Button>

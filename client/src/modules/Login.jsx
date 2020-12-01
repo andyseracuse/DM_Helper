@@ -3,14 +3,15 @@ import React, { useState } from 'react';
 import { Card, CardBody, CardTitle, Alert } from 'reactstrap';
 import InputForm from './InputForm';
 import { useAuth } from '../contexts/AuthContext';
-import { Link, useHistory } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom'
 
-export default function SignUp() {
-  const { signup, currentUser } = useAuth();
+export default function Login() {
+  const { login, currentUser } = useAuth();
   const [error, setError] = useState();
   const [loading, setLoading] = useState(false);
   const history = useHistory();
-  const signUpInputs=[
+  
+  const loginInputs=[
     {
       key: 'email',
       name: 'Email',
@@ -39,24 +40,12 @@ export default function SignUp() {
       },
       type: 'password',
       xs: 12
-    },
-    {
-      key: 'repeat_password',
-      name: 'Confirm Password',
-      validations: {
-        required: {
-          value: true,
-          message: "Please re-type your password"
-        }
-      },
-      type: 'repeat_password',
-      xs: 12
     }
   ]
 
   const handleSubmit = function(body) {
     setLoading(true)
-    signup(body.email, body.password)
+    login(body.email, body.password)
       .then(() => history.push('/'))
       .catch((err) => setError(err.code))
       .then(() => setLoading(false))
@@ -64,21 +53,22 @@ export default function SignUp() {
   return (
     <Container maxWidth="sm" className="d-flex align-items-center justify-content-center" style={{minHeight: "100vh"}}>
       <div className="w-100 d-flex flex-column align-items-center">
+      {currentUser && currentUser.email}
         <Card>
           <div className="py-3">
-            <CardTitle tag="h1" className="w-100 text-center">Sign Up</CardTitle>
+            <CardTitle tag="h1" className="w-100 text-center">Log In</CardTitle>
             <Container>
               {error && <Alert className="text-center" color="danger">{error}</Alert>}
             </Container>
             <InputForm
-              inputs={signUpInputs}
+              inputs={loginInputs}
               submitFxn={handleSubmit}
               submitDisable={loading}
             />
           </div>
         </Card>
         <div>
-          Already Have An Account? <Link to="/login">Log In</Link>
+          Need an account? <Link to="/signup">Sign Up</Link>
         </div>
       </div>
     </Container>

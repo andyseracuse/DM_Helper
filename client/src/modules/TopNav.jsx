@@ -11,10 +11,14 @@ import {
   DropdownToggle,
   DropdownMenu,
   DropdownItem,
-  NavbarText
+  NavbarText, 
+  Dropdown,
+  Alert
 } from 'reactstrap';
 import { Avatar, Divider } from '@material-ui/core/';
 import { makeStyles } from '@material-ui/core/styles';
+import { useAuth } from "../contexts/AuthContext"
+import { useHistory } from 'react-router-dom'
 
 const useStyles = makeStyles((theme) => ({
   large: {
@@ -39,10 +43,31 @@ const useStyles = makeStyles((theme) => ({
 
 export default function TopNav({ campaignButtonModalToggle, getcampaigns }) {
   const classes = useStyles();
+  const { currenUser, logout } = useAuth();
 
   const [isOpen, setIsOpen] = useState(false);
-
   const toggle = () => setIsOpen(!isOpen);
+
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const dropdownToggle = () => setDropdownOpen(prevState => !prevState);
+
+  const [error, setError] = useState(false)
+
+  const history = useHistory();
+
+  const auth = useAuth();
+
+  const HandleLogout = function() {
+    setError('')
+    
+    logout()
+      .then(
+        history.push('/login')
+      )
+      .catch(
+        setError(error)
+      )
+  }
 
   return (
     <div className={classes.entireNav}>
@@ -82,13 +107,30 @@ export default function TopNav({ campaignButtonModalToggle, getcampaigns }) {
               flexItem 
               className={classes.divider}
             />
-            <Avatar 
-              src="https://i.pinimg.com/564x/57/38/bf/5738bf89d5dbcc84189f0475826cd023.jpg" 
-              className={classes.large}>
-            </Avatar>
+            <Dropdown isOpen={dropdownOpen} toggle={dropdownToggle} nav inNavbar>
+              <DropdownToggle
+                data-toggle="dropdown"
+                aria-aria-expanded={dropdownOpen}
+              >
+                <Avatar 
+                  src="https://i.pinimg.com/564x/57/38/bf/5738bf89d5dbcc84189f0475826cd023.jpg" 
+                  className={classes.large}>
+                </Avatar>
+                Account
+              </DropdownToggle>
+              <DropdownMenu right
+                onClick={() => {
+                  dropdownToggle()
+                  HandleLogout()
+                }}
+              >
+                <div className="text-center" >Logout</div>
+              </DropdownMenu>
+            </Dropdown>
           </Nav>
         </Collapse>
       </Navbar>
+      {error && <Alert color="danger"></Alert>}
     </div>
   );
 }
