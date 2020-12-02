@@ -47,5 +47,18 @@
 .ajs-container:hover{
   justify-content: center;
 }
+.ajs-campaign-title{
+  font-size: 4em;
+  margin-bottom: 0;
+}
+.ajs-campaign-title-divider{
+}
+.ajs-display-title-container{
+  width: 80%
+}
+.ajs-display-title-container-container{
+  display: flex;
+  justify-content: center;
+}
 
 /* MUI BEING DUMB HAD TO USE THIS CLASS IF THERES A COLLISION ITS PROBABLY HERE */

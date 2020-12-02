@@ -36,7 +36,9 @@ export default function Login() {
   const handleSubmit = function(body) {
     setLoading(true)
     login(body.email, body.password)
-      .then(() => history.push('/'))
+      .then((res) => {
+        console.log('in login submit', res)
+      })
       .catch((err) => setError(err.code))
       .then(() => setLoading(false))
   }

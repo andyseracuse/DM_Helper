@@ -5,7 +5,6 @@ const { Schema } = mongoose;
 const campaignSchema = new Schema({
   title: {
     type: String,
-    unique: true
   },
   image: {
     type: String,

@@ -12,10 +12,25 @@ app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 
 ////////////////////////////////////////////////////////////////
-//Campaign routes
+//User routes
 ////////////////////////////////////////////////////////////////
-app.get('/campaigns', function (req, res) {
-  db.findAllCampaigns()
+
+
+app.post('/users', function(req, res) {
+  console.log('made it to userss')
+  db.createUser(req.body)
+    .then((dbResponse) =>  {
+      res.status(200);
+      res.send(dbResponse)
+    })
+    .catch((err) => {
+      console.log(err);
+      res.sendStatus(500);
+    })
+})
+
+app.get('/users/:uid/campaigns', function (req, res) {
+  db.findAllCampaigns(req.params.uid)
     .then((dbResponse) => {
       res.send(dbResponse)
     })
@@ -24,6 +39,9 @@ app.get('/campaigns', function (req, res) {
       res.sendStatus(500);
     })
 });
+////////////////////////////////////////////////////////////////
+//Campaign routes
+////////////////////////////////////////////////////////////////
 
 app.get('/campaigns/:id', function(req, res) {
   db.findOneCampaign(req.params.id)
@@ -55,8 +73,9 @@ app.put('/campaigns/:campaignId', function(req, res){
     })
 })
 
-app.post('/campaigns/', function(req, res) {
-  db.createCampaign(req.body)
+app.post('/users/:uid/campaigns', function(req, res) {
+  console.log('hello')
+  db.createCampaign(req.params.uid, req.body)
     .then((dbResponse) =>  {
       res.status(200);
       res.send(dbResponse)

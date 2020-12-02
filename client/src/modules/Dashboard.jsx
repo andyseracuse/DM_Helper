@@ -5,10 +5,11 @@ import CampaignButtons from './CampaignButtons'
 import TopNav from './TopNav'
 import GroupsView from './GroupsView'
 import axios from 'axios'
+import { useAuth } from '../contexts/AuthContext'
+import { Container, Divider } from '@material-ui/core';
 
-const baseURL = 'http://localhost:3000'
-
-export default function Dashboard(props) {
+export default function Dashboard({ baseURL }) {
+  const { currentUser } = useAuth()
 
   const [campaignButtonModal, setCampaignButtonModal] = useState(true)
   const campaignButtonModalToggle = () => setCampaignButtonModal(!campaignButtonModal);
@@ -23,9 +24,11 @@ export default function Dashboard(props) {
 
 
   const getcampaigns = () => {
-    axios.get(baseURL + '/campaigns')
+    axios({
+      url: baseURL + '/users/' + currentUser.uid + '/campaigns',
+      method: 'GET'
+    })
       .then((response) => {
-        console.log(response.data)
         setcampaigns(response.data)
       })
       .catch(err => console.log(err))
@@ -45,7 +48,7 @@ export default function Dashboard(props) {
     }
     axios({
       method: 'post',
-      url: baseURL + '/campaigns',
+      url: baseURL + '/users/' + currentUser.uid + '/campaigns',
       data: body
     })
       .then((response) => {
@@ -83,7 +86,6 @@ export default function Dashboard(props) {
         setModal={setCampaignButtonModal} 
         modalHeader="Select or Create A Campaign"
         toggle={() => {
-          console.log(campaign.default)
           if(campaign.default === undefined){
             campaignButtonModalToggle();
           }
@@ -112,7 +114,7 @@ export default function Dashboard(props) {
           campaignButtonModalToggle();
         }}
         modalHeader="Create a New Campaign"
-      >
+        >
         <InputForm
           inputs={createCampaignInputs}
           submitFxn={(body) => {
@@ -125,9 +127,17 @@ export default function Dashboard(props) {
             setSelectedMember({default: true})
             createCampaignModalToggle()
           }}
-        />
+          />
       </FormModal>
       <TopNav campaignButtonModalToggle={campaignButtonModalToggle} getcampaigns={getcampaigns} />
+      <Container component="main" maxWidth="md">
+        {campaign && <p className={"text-center ajs-campaign-title"}>{'Campaign: ' + campaign.title}</p>}
+        <div className="ajs-display-title-container-container">
+          <div className="ajs-display-title-container">    
+            <Divider className="my-3 ajs-campaign-title-divider" />  
+          </div>
+        </div>
+      </Container>
       <GroupsView 
         campaign={campaign} 
         baseURL={baseURL} 
@@ -136,7 +146,7 @@ export default function Dashboard(props) {
         setSelectedMember={setSelectedMember}
         selectedGroup={selectedGroup}
         setSelectedGroup={setSelectedGroup}
-      />
+        />
     </div>
   )
 }

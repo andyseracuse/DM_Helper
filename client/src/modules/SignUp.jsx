@@ -4,8 +4,9 @@ import { Card, CardBody, CardTitle, Alert } from 'reactstrap';
 import InputForm from './InputForm';
 import { useAuth } from '../contexts/AuthContext';
 import { Link, useHistory } from 'react-router-dom';
+import axios from 'axios';
 
-export default function SignUp() {
+export default function SignUp({ baseURL }) {
   const { signup, currentUser } = useAuth();
   const [error, setError] = useState();
   const [loading, setLoading] = useState(false);
@@ -53,11 +54,27 @@ export default function SignUp() {
       xs: 12
     }
   ]
-
+  
+  const createUser = function(uid, image) {
+    console.log('uid:', uid, "and image:", image)
+    if(image === '') {
+      body.image = undefined
+    }
+    console.log('increateuser url')
+    axios({
+      method: 'POST',
+      url: baseURL + '/users',
+      data: {uid, image}
+    })
+  }
   const handleSubmit = function(body) {
     setLoading(true)
     signup(body.email, body.password)
-      .then(() => history.push('/'))
+      .then((response) => {
+        console.log('submit handle')
+        createUser(response.user.uid, body.image);
+        // createUser(response.user.uid, body.image)
+      })
       .catch((err) => setError(err.code))
       .then(() => setLoading(false))
   }

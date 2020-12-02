@@ -3,15 +3,14 @@ import { Route, Redirect } from 'react-router-dom'
 import { useAuth } from '../contexts/AuthContext'
 
 
-export default function AuthRoute({ component: Component, ...rest}) {
+export default function AuthRoute({ baseURL, component: Component, ...rest}) {
   const { currentUser } = useAuth();
-  console.log(currentUser)
   return (
     <div>
       <Route
         {...rest}
         render={props => {
-          return !currentUser ? <Component {...props} /> : <Redirect to="/" />
+          return !currentUser ? <Component baseURL={baseURL} {...props} /> : <Redirect to="/" />
         }}
       >
         

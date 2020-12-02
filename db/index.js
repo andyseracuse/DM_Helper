@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const User = require('./models/user.js');
 const Campaign = require('./models/campaign.js');
 const Member = require('./models/member.js')
 const Group = require('./models/group.js');
@@ -11,12 +12,28 @@ mongoose.connect('mongodb://localhost:27017/DM_Helper',{
 const db = mongoose.connection
 
 /////////////////////////////////////////////////////////////////
+//USER FXNS
+/////////////////////////////////////////////////////////////////
+
+const createUser = function(body) {
+  return User.create({
+    ...body,
+    campaigns: []
+  })
+}
+
+const findAllCampaigns = function(uid) {
+  return User.findOne({uid: uid}, { title: 1, image: 1 })
+    .populate({path: 'campaigns'})
+    .then((user) => {
+      console.log(user.campaigns)
+      return user.campaigns
+    })
+}
+/////////////////////////////////////////////////////////////////
 //CAMPAIGN FXNS
 /////////////////////////////////////////////////////////////////
 
-const findAllCampaigns = function() {
-  return Campaign.find({}, { title: 1, image: 1 })
-}
 
 const findOneCampaign = async function(id) {
   return Campaign.findById(id)
@@ -24,13 +41,17 @@ const findOneCampaign = async function(id) {
     .then((campaign) => {return campaign})
 }
 
-const createCampaign = function(body) {
-  return Campaign.create({
+const createCampaign = async function(uid, body) {
+  const user = await User.findOne({uid: uid})
+  const campaign = await Campaign.create({
     ...body,
     NPCs: {
       groups: []
     }
   })
+  await user.campaigns.push(campaign);
+  await user.save();
+  return campaign
 }
 
 const updateCampaign= async function(campaignId, body){
@@ -96,6 +117,7 @@ const deleteMember = async function(memberId){
 }
 
 module.exports = {
+  createUser: createUser,
   findAllCampaigns: findAllCampaigns,
   findOneCampaign: findOneCampaign,
   createCampaign: createCampaign,

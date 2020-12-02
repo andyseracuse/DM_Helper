@@ -12,18 +12,19 @@ import PrivateRoute from './modules/PrivateRoute'
 import AuthRoute from './modules/AuthRoute'
 import ForgotPassword from './modules/ForgotPassword'
 
+const baseURL = 'http://localhost:3000'
+
 const App = () => {
-  
 
   return(
     <div>
       <Router>
         <AuthProvider>
           <Switch>
-            <AuthRoute path={"/signup"} component={SignUp} />
-            <AuthRoute path="/login" component={Login} />
+            <AuthRoute path={"/signup"} baseURL={baseURL} component={SignUp} />
+            <AuthRoute path="/login" baseURL={baseURL} component={Login} />
             <Route path="/forgot-password" component={ForgotPassword} />
-            <PrivateRoute exact path="/" component={Dashboard} />
+            <PrivateRoute exact path="/" baseURL={baseURL} component={Dashboard} />
           </Switch>
         </AuthProvider>
       </Router>
