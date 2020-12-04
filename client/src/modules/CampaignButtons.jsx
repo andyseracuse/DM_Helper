@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import ButtonBase from '@material-ui/core/ButtonBase';
 import Typography from '@material-ui/core/Typography';
-import CampaignModals from './CampaignModals.jsx'
+import CampaignModals from './CampaignModals.jsx';
 
 
 export default function CampaignButtons({ 
@@ -14,7 +14,8 @@ export default function CampaignButtons({
   baseURL, 
   campaign,
   setSelectedMember,
-  setSelectedGroup
+  setSelectedGroup,
+  setCampaign
 }) {
   const images = campaigns.map((campaign => {
     return ({
@@ -126,6 +127,7 @@ export default function CampaignButtons({
         baseURL={baseURL}
         campaign={campaign}
         setEditCampaignModal={setEditCampaignModal}
+        setCampaign={setCampaign}
       />
         <ButtonBase
           focusRipple
@@ -180,7 +182,7 @@ export default function CampaignButtons({
             }}
             onClick={()=> {
               setSelectedMember({default: true})
-              setSelectedGroup({default: true, members: []})
+              setSelectedGroup({_id: '', default: true, members: []})
               console.log('image',image.id)
               chooseCampaign(image.id);
               toggle();

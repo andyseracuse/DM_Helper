@@ -37,6 +37,11 @@ export default function ActualMemberSelector({
       width: theme.spacing(6),
       height: theme.spacing(6),
     },
+    create: {
+      width: theme.spacing(6),
+      height: theme.spacing(6),
+      backgroundColor: '#f40057'
+    },
     centerOfPane: {
       display: 'flex',
       alignItems: 'center',
@@ -139,7 +144,7 @@ export default function ActualMemberSelector({
             })
           }
           <div onClick={toggleMemberModal} className={classes.carouselItem}>
-            <Avatar className={classes.large}>+</Avatar>
+            <Avatar className={classes.create}>+</Avatar>
             <p>
               Create New
             </p>

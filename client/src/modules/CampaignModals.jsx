@@ -6,7 +6,19 @@ import axios from 'axios';
 import { Grid, Button } from '@material-ui/core'
 import InputForm from './InputForm'
 
-export default function CampaignModals({ deleteCampaignModal, setDeleteCampaignModal, setEditCampaignModal, toggledeleteCampaignModal, editCampaignModal, toggleEditCampaignModal, getcampaigns, toggleCampaignButtonModal, baseURL, campaign }) {
+export default function CampaignModals({ 
+  deleteCampaignModal, 
+  setDeleteCampaignModal, 
+  setEditCampaignModal, 
+  toggledeleteCampaignModal, 
+  editCampaignModal, 
+  toggleEditCampaignModal, 
+  getcampaigns, 
+  toggleCampaignButtonModal, 
+  baseURL, 
+  campaign,
+  setCampaign 
+}) {
 
   const deleteCampaign = () => {
     axios({
@@ -16,6 +28,7 @@ export default function CampaignModals({ deleteCampaignModal, setDeleteCampaignM
       .then(() => {
         getcampaigns();
         toggledeleteCampaignModal();
+        setCampaign({NPCs: {groups: []}, default: true, title: ""})
       })
   }
   const editCampaign = (body) => {

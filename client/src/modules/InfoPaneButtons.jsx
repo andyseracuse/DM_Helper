@@ -153,8 +153,9 @@ export default function InfoPaneButtons( { selectedMember, setSelectedMember, ba
   ]
 
   return (
-    <div className="ajs-column-flex space spaceAround">
+    <div className="ajs-column-flex ajs-info-buttons">
       <CharSheetModal
+        className='d-none'
         modal={charSheetModal}
         setModal={setCharSheetModal}
         toggle={charSheetModalToggle}
@@ -162,6 +163,7 @@ export default function InfoPaneButtons( { selectedMember, setSelectedMember, ba
         selectedMember={selectedMember}
       />
       <FormModal
+        className="d-none"
         modal={editCharModal}
         setModal={setEditCharModal}
         toggle={editCharModalToggle}

@@ -58,7 +58,10 @@ export default function InputForm({ inputs, submitFxn, modalToggle, submitDisabl
           noValidate onSubmit={
             (e) => {
               e.preventDefault()
-              handleSubmit((data)=> submitFxn(data))();
+              handleSubmit((data)=> {
+                console.log(data)
+                submitFxn(data)
+              })();
               // modalToggle();
             }
           }
@@ -148,10 +151,12 @@ export default function InputForm({ inputs, submitFxn, modalToggle, submitDisabl
                 }
                 if(input.type === 'dropdown') {
                   input.validations === undefined ? input.validations = {} : null
-                  const [selectInput, setSelectInput] = React.useState('')
+                  const startVal = input.startVal ? input.startVal : ''
+                  const [selectInput, setSelectInput] = React.useState(startVal)
                   const handleChange = (event) => {
                     setSelectInput(event.target.value);
                   };
+                  console.log('startval', selectInput)
                   return(
                     <Grid item sm={input.sm} xs={input.xs}>
                       <div classname="ajs-select-wont-100">
@@ -168,9 +173,6 @@ export default function InputForm({ inputs, submitFxn, modalToggle, submitDisabl
                             margin="normal"
                             className={classes.fullWidth}
                           >
-                            <MenuItem className={classes.fullWidth} value="">
-                              <em>persuasion</em>
-                            </MenuItem>
                             {input.selectValues.map((value) => {
                               return <MenuItem name={input.key} value={value}>{value}</MenuItem>
                             })}

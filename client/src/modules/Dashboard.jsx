@@ -20,7 +20,7 @@ export default function Dashboard({ baseURL }) {
   const [campaigns, setcampaigns] = useState([])
   const [campaign, setCampaign] = useState({title:'', NPCs:{groups:[]}, default: true})
   const [selectedMember, setSelectedMember] = useState({default: true})
-  const [selectedGroup, setSelectedGroup] = useState({default:true, members:[]});
+  const [selectedGroup, setSelectedGroup] = useState({_id: '', default:true, members:[]});
 
 
   const getcampaigns = () => {
@@ -101,6 +101,7 @@ export default function Dashboard({ baseURL }) {
           campaign={campaign}
           setSelectedGroup={setSelectedGroup}
           setSelectedMember={setSelectedMember}
+          setCampaign={setCampaign}
         />
       </FormModal>
       <FormModal

@@ -38,6 +38,7 @@
 }
 .ajs-container:hover > div > svg{
   display: flex;
+  
 }
 .ajs-container:hover > div{
   display: flex;
@@ -51,8 +52,6 @@
   font-size: 4em;
   margin-bottom: 0;
 }
-.ajs-campaign-title-divider{
-}
 .ajs-display-title-container{
   width: 80%
 }
@@ -60,5 +59,23 @@
   display: flex;
   justify-content: center;
 }
-
+.ajs-container.ajs-group-buttons {
+  height: 100%;
+  overflow: hidden;
+}
+.bi-pencil, .bi-trash {
+  cursor: pointer;
+}
+.ajs-group-icons {
+  margin-left: 5%
+}
+.ajs-info-buttons {
+  height: 100%;
+  background: #bdbdbd;
+  border-radius: 10px;
+  padding: 30px;
+}
+.ajs-info-buttons button{
+  margin: auto;
+}
 /* MUI BEING DUMB HAD TO USE THIS CLASS IF THERES A COLLISION ITS PROBABLY HERE */
