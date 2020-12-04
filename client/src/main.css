@@ -1,0 +1,81 @@
+.ajs-column-flex{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+.ajs-select-wont-100{
+  width: 100%;
+}
+.ajs-form-error {
+  color: #bf1650;
+}
+
+.ajs-form-error::before {
+  display: inline;
+  content: "⚠ ";
+}
+.spaceAround{
+  justify-content: space-evenly;
+  height: 100%;
+  padding-top: 90%;
+}
+.ajs-container:hover > button{
+  width: 50% !important
+}
+.ajs-container{
+  height: 100px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.ajs-container{
+  margin: 5px 0 5px 0;
+}
+.ajs-container > div > svg{
+  display: none
+}
+.ajs-container:hover > div > svg{
+  display: flex;
+  
+}
+.ajs-container:hover > div{
+  display: flex;
+  margin-right: 5%;
+  margin-left: 5%;
+}
+.ajs-container:hover{
+  justify-content: center;
+}
+.ajs-campaign-title{
+  font-size: 4em;
+  margin-bottom: 0;
+}
+.ajs-display-title-container{
+  width: 80%
+}
+.ajs-display-title-container-container{
+  display: flex;
+  justify-content: center;
+}
+.ajs-container.ajs-group-buttons {
+  height: 100%;
+  overflow: hidden;
+}
+.bi-pencil, .bi-trash {
+  cursor: pointer;
+}
+.ajs-group-icons {
+  margin-left: 5%
+}
+.ajs-info-buttons {
+  height: 100%;
+  background: #bdbdbd;
+  border-radius: 10px;
+  padding: 30px;
+}
+.ajs-info-buttons button{
+  margin: auto;
+}
+/* MUI BEING DUMB HAD TO USE THIS CLASS IF THERES A COLLISION ITS PROBABLY HERE */
