@@ -137,7 +137,6 @@ export default function GroupSelector({
     {
       key: 'persuasion',
       selectValues: ['with', 'against', 'nuetral'],
-      validations: {required: true, validate: value => ['with', 'against', 'nuetral'].includes(value)},
       name: 'persuasion',
       errorMessage: 'Please chose a persuasion from "with", "against", or "nuetral"',
       type: 'dropdown',

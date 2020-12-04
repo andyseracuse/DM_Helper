@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import './main.css';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
@@ -15,6 +15,16 @@ import ForgotPassword from './modules/ForgotPassword'
 const baseURL = 'http://localhost:3000'
 
 const App = () => {
+
+  const chooseCampaign = (titleObject) => {
+    axios.get(baseURL + '/campaigns/' + titleObject._id)
+      .then((response) => {
+        setCampaign(response.data)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
 
   return(
     <div>

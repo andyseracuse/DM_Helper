@@ -172,6 +172,7 @@ export default function InputForm({ inputs, submitFxn, modalToggle, submitDisabl
                             required={input.validations.required === true ? true : false}
                             margin="normal"
                             className={classes.fullWidth}
+                            defaultValue={startVal}
                           >
                             {input.selectValues.map((value) => {
                               return <MenuItem name={input.key} value={value}>{value}</MenuItem>

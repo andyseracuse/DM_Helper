@@ -78,4 +78,7 @@
 .ajs-info-buttons button{
   margin: auto;
 }
+.ajs-create-member-button{
+  height: 48px;
+}
 /* MUI BEING DUMB HAD TO USE THIS CLASS IF THERES A COLLISION ITS PROBABLY HERE */

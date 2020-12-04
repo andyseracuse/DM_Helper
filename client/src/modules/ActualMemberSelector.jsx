@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
-import { Avatar } from '@material-ui/core';
+import { Avatar, Button } from '@material-ui/core';
 import axios from 'axios';
 import FormModal from './FormModal'
 import InputForm from './InputForm'
@@ -40,7 +40,7 @@ export default function ActualMemberSelector({
     create: {
       width: theme.spacing(6),
       height: theme.spacing(6),
-      backgroundColor: '#f40057'
+      background: 'none',
     },
     centerOfPane: {
       display: 'flex',
@@ -105,12 +105,18 @@ export default function ActualMemberSelector({
 
     if (selectedGroup.members.length === 0 && selectedGroup.default === undefined){
       return(
-        <div  className={"ajs-column-flex " + classes.empty}>
-          <Avatar color="secondary" onClick={toggleMemberModal} className={classes.large}>+</Avatar>
-          <p>
-            Create New
-          </p>
-        </div>
+        <div onClick={toggleMemberModal} className={classes.carouselItem}>
+        <Avatar className={classes.create}>
+          <Button className="ajs-create-member-button" variant="contained" color="secondary">
+            <div>
+              +
+            </div>
+          </Button>
+        </Avatar>
+        <p>
+          Create New
+        </p>
+      </div>
       )
     }
     if(selectedGroup.default === undefined && selectedGroup.members.length !== 0){
@@ -144,7 +150,13 @@ export default function ActualMemberSelector({
             })
           }
           <div onClick={toggleMemberModal} className={classes.carouselItem}>
-            <Avatar className={classes.create}>+</Avatar>
+            <Avatar className={classes.create}>
+              <Button className="ajs-create-member-button" variant="contained" color="secondary">
+                <div>
+                  +
+                </div>
+              </Button>
+            </Avatar>
             <p>
               Create New
             </p>
