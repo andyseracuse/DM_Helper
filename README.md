@@ -25,7 +25,7 @@
 
 - Sign Up
 
-![Imgur](https://i.imgur.com/yzNEuvy.gif)
+![Imgur](https://i.imgur.com/9uGmDvT.gif)
 
 - Login and Forgot Password
 
