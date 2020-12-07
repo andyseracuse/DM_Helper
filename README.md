@@ -1,6 +1,8 @@
 # Raje Tech Brick And Click Product Info
 
->When running a tabletop game, a common problem that presents itself to the game master is management of NPC's. What did their voices sound like?  What group did they each belong to? Were they with, against, or nuetral to the party?  Keeping this all in your head can become troublesome if not impossible! DM Helper aims to solve this problem.  This full stack application with firebase authentication tabletop game masters manage their NPC's with an intuative, and beautiful UI. Users can add multiple campaigns, NPC groups, and NPC's.  Each NPC can store pictures, character sheets, voice information, and more!
+>When running a tabletop game, a common problem that presents itself to the game master is management of NPC's. What did their voices sound like?  What group did they each belong to? Were they with, against, or nuetral to the party?  Keeping this all in your head can become troublesome if not impossible! 
+
+DM Helper aims to solve this problem.  This is a full stack application with firebase authentication that helps tabletop game masters manage their NPC's with an intuative, and beautiful UI. Users can add multiple campaigns, NPC groups, and NPC's.  Each NPC can store pictures, character sheets, voice information, and more!
 
 ## Coming Soon
 - Full deployment with docker and AWS
