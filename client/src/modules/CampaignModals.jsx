@@ -74,6 +74,7 @@ export default function CampaignModals({
       validations: {required: true},
       errorMessage: 'Please enter a title',
       type: 'text',
+      startVal: campaign.title,
       sm: 6
     },
     {
@@ -81,6 +82,7 @@ export default function CampaignModals({
       name: 'Photo Url',
       errorMessage: 'Please enter a photo Url',
       type: 'text',
+      startVal: campaign.image,
       sm: 6
     }
   ]

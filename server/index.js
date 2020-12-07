@@ -74,7 +74,6 @@ app.put('/campaigns/:campaignId', function(req, res){
 })
 
 app.post('/users/:uid/campaigns', function(req, res) {
-  console.log('hello')
   db.createCampaign(req.params.uid, req.body)
     .then((dbResponse) =>  {
       res.status(200);

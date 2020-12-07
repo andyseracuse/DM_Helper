@@ -128,15 +128,13 @@ export default function InfoPaneButtons( { selectedMember, setSelectedMember, ba
     {
       key: 'charachterSheetUrl',
       name: 'Character Sheet Url',
-      errorMessage: 'Please chose a persuasion from "with", "for", or "against"',
       type: 'text',
       sm: 6,
-      startVal: selectedMember.characterSheetURL
+      startVal: selectedMember.charachterSheetUrl   
     },
     {
       key: 'photo',
       name: 'photo',
-      errorMessage: 'Please chose a persuasion from "with", "for", or "against"',
       type: 'text',
       sm: 6,
       startVal: selectedMember.photo
