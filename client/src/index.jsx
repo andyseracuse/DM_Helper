@@ -13,7 +13,7 @@ import AuthRoute from './modules/AuthRoute'
 import ForgotPassword from './modules/ForgotPassword'
 const keys = require('../../keys.js')
 
-const baseURL = 'keys.baseURL'
+const baseURL = keys.baseURL
 
 const App = () => {
 
