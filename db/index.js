@@ -3,8 +3,9 @@ const User = require('./models/user.js');
 const Campaign = require('./models/campaign.js');
 const Member = require('./models/member.js')
 const Group = require('./models/group.js');
+const keys = require('../keys.js');
 
-mongoose.connect('mongodb://localhost:27017/DM_Helper',{
+mongoose.connect(keys.db_connection_string,{
   useNewUrlParser: true,
   useUnifiedTopology: true
 });

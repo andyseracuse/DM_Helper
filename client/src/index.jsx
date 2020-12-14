@@ -11,8 +11,9 @@ import Login from './modules/Login'
 import PrivateRoute from './modules/PrivateRoute'
 import AuthRoute from './modules/AuthRoute'
 import ForgotPassword from './modules/ForgotPassword'
+const keys = require('../../keys.js')
 
-const baseURL = 'http://localhost:3000'
+const baseURL = 'keys.baseURL'
 
 const App = () => {
 

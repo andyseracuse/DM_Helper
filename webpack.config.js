@@ -1,5 +1,5 @@
 module.exports = {
-  mode: 'development',
+  mode: 'production',
   entry: __dirname + '/client/src/index.jsx',
   resolve: {
     extensions: ['.js', '.jsx'],
