@@ -6,7 +6,7 @@
 
 ## Demo
 
-http://ec2-3-138-154-237.us-east-2.compute.amazonaws.com/
+http://thedmhelper.com
 
 ## Coming Soon
 - HTTPS 
