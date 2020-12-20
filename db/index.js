@@ -5,6 +5,8 @@ const Member = require('./models/member.js')
 const Group = require('./models/group.js');
 const keys = require('../keys.js');
 
+console.log('HELLO?!?!', keys.db_connection_string)
+
 mongoose.connect(keys.db_connection_string,{
   useNewUrlParser: true,
   useUnifiedTopology: true
@@ -17,6 +19,7 @@ const db = mongoose.connection
 /////////////////////////////////////////////////////////////////
 
 const createUser = function(body) {
+  console.log('TEST', body)
   return User.create({
     ...body,
     campaigns: []
@@ -24,6 +27,7 @@ const createUser = function(body) {
 }
 
 const findAllCampaigns = function(uid) {
+  console.log(uid)
   return User.findOne({uid: uid}, { title: 1, image: 1 })
     .populate({path: 'campaigns'})
     .then((user) => {
