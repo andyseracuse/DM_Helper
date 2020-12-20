@@ -1,4 +1,4 @@
-# Raje Tech Brick And Click Product Info
+# DM Helper
 
 >When running a tabletop game, a common problem that presents itself to the game master is management of NPC's. What did their voices sound like?  What group did they each belong to? Were they with, against, or nuetral to the party?  Keeping this all in your head can become troublesome if not impossible! 
 >
